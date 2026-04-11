@@ -38,7 +38,7 @@ export default function About() {
                 <img
                   src="/src/components/151fd57aafc318b7-f4cfc689-cd5e-4d00-ab26-280280fb6680.png"
                   alt="Omkar Gharge"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover rounded-2xl"
                 />
               </div>
 
