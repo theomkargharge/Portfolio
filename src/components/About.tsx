@@ -1,4 +1,5 @@
 import { MapPin, Briefcase, GraduationCap, Rocket, Smartphone } from 'lucide-react';
+import profileImg from './151fd57aafc318b7-f4cfc689-cd5e-4d00-ab26-280280fb6680.png';
 
 const pills = [
   { icon: MapPin, label: 'Pune, Maharashtra' },
@@ -36,7 +37,7 @@ export default function About() {
                 style={{ background: '#080808', aspectRatio: '1', minHeight: 320 }}
               >
                 <img
-                  src="/src/components/151fd57aafc318b7-f4cfc689-cd5e-4d00-ab26-280280fb6680.png"
+                  src={profileImg}
                   alt="Omkar Gharge"
                   className="w-full h-full object-cover rounded-2xl"
                 />
