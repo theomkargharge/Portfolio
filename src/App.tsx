@@ -16,14 +16,33 @@ function App() {
         entries.forEach((e) => {
           if (e.isIntersecting) {
             e.target.classList.add('in-view');
+          } else {
+            e.target.classList.remove('in-view');
           }
         });
       },
       { threshold: 0.1 }
     );
 
-    const els = document.querySelectorAll('.reveal');
-    els.forEach((el) => observer.observe(el));
+    // Select all elements with reveal animation classes
+    const revealSelectors = [
+      '.reveal', '.reveal-left', '.reveal-right', '.reveal-top', '.reveal-bottom',
+      '.reveal-top-strong', '.reveal-bottom-strong',
+      '.reveal-scale', '.reveal-zoom', '.reveal-rotate', '.reveal-blur',
+      '.reveal-bounce', '.reveal-pop', '.reveal-fast', '.reveal-fastest'
+    ];
+    
+    revealSelectors.forEach(selector => {
+      const els = document.querySelectorAll(selector);
+      els.forEach((el) => {
+        observer.observe(el);
+        // Trigger immediately for elements already visible on page load
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          el.classList.add('in-view');
+        }
+      });
+    });
 
     return () => observer.disconnect();
   }, []);

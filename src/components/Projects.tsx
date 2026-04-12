@@ -15,7 +15,7 @@ const projects = [
     stat: '1M+ Downloads',
     statColor: '#10b981',
     links: [
-      { label: 'Play Store', href: 'https://play.google.com/store/apps/details?id=com.akbartravels' },
+      { label: 'Play Store', href: 'https://play.google.com/store/search?q=akbar%20travels&c=apps&hl=en_IN' },
       { label: 'App Store', href: 'https://apps.apple.com/app/akbar-travels/id6504057226' },
     ],
     featured: true,
@@ -69,7 +69,7 @@ export default function Projects() {
       <div className="absolute inset-x-0 bottom-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)' }} />
 
       <div className="max-w-6xl mx-auto">
-        <div className="reveal text-center mb-16">
+        <div className="reveal-top-strong text-center mb-16">
           <span
             className="inline-block text-[11px] font-semibold tracking-[3px] uppercase text-[#00d4ff] border border-[#00d4ff]/20 bg-[#00d4ff]/[0.05] px-4 py-1.5 rounded-full mb-5"
             style={{ fontFamily: 'JetBrains Mono, monospace' }}
@@ -89,7 +89,7 @@ export default function Projects() {
           {projects.map((p, i) => (
             <div
               key={p.title}
-              className={`reveal reveal-delay-${Math.min(i + 1, 4)} glow-card relative rounded-2xl border border-white/[0.07] overflow-hidden flex flex-col`}
+              className={`${i % 2 === 0 ? 'reveal-left' : 'reveal-right'} reveal-delay-${Math.min(i + 1, 4)} glow-card relative rounded-2xl border border-white/[0.07] overflow-hidden flex flex-col`}
               style={{ background: '#0c0c0c' }}
             >
               {p.featured && (

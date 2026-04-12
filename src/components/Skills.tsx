@@ -13,31 +13,115 @@ const skills = [
   { name: 'Git / GitHub', tag: 'devops', level: 88, color: '#6b7280' },
 ];
 
+import { useEffect, useRef, useState } from 'react';
+
 function SkillCard({ name, tag, level, color }: { name: string; tag: string; level: number; color: string }) {
+  const barRef = useRef<HTMLDivElement>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isAnimating) {
+            setIsAnimating(true);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (barRef.current) {
+      observer.observe(barRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [isAnimating]);
+
   return (
     <div
-      className="glow-card rounded-xl border border-white/[0.07] p-5 cursor-default"
+      className="glow-card group rounded-xl border border-white/[0.07] p-5 cursor-default overflow-hidden relative"
       style={{ background: '#0c0c0c' }}
     >
-      <div className="flex items-start justify-between mb-3">
-        <div>
-          <div className="text-[15px] font-semibold text-white">{name}</div>
+      {/* Futuristic background glow */}
+      <div
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{
+          background: `radial-gradient(ellipse at 50% 0%, ${color}08, transparent 70%)`,
+          pointerEvents: 'none',
+        }}
+      />
+
+      <div className="relative z-10">
+        <div className="flex items-start justify-between mb-4">
+          <div>
+            <div className="text-[15px] font-semibold text-white tracking-tight">{name}</div>
+            <div
+              className="text-[11px] mt-1 font-medium opacity-75"
+              style={{ color, fontFamily: 'JetBrains Mono, monospace' }}
+            >
+              {tag}
+            </div>
+          </div>
           <div
-            className="text-[11px] mt-0.5"
-            style={{ color, fontFamily: 'JetBrains Mono, monospace' }}
+            className="text-[12px] font-bold tabular-nums px-2.5 py-1 rounded-md"
+            style={{
+              color: color,
+              background: `${color}15`,
+              border: `1px solid ${color}30`,
+              fontFamily: 'JetBrains Mono, monospace',
+            }}
           >
-            {tag}
+            {level}%
           </div>
         </div>
-        <span className="text-[12px] font-bold" style={{ color }}>{level}%</span>
-      </div>
-      <div className="h-[3px] rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.06)' }}>
+
+        {/* Animated progress bar */}
         <div
-          className="h-full rounded-full"
+          ref={barRef}
+          className="relative h-[2px] rounded-full overflow-hidden group/bar"
           style={{
-            width: `${level}%`,
-            background: `linear-gradient(90deg, ${color}, ${color}66)`,
-            transition: 'width 1.2s cubic-bezier(0.22, 1, 0.36, 1)',
+            background: 'rgba(255,255,255,0.05)',
+            boxShadow: `inset 0 0 0 1px ${color}10`,
+          }}
+        >
+          {/* Background glow effect */}
+          <div
+            className="absolute inset-0 opacity-0 group-hover/bar:opacity-100 transition-opacity duration-500"
+            style={{
+              background: `linear-gradient(90deg, transparent, ${color}30, transparent)`,
+              filter: 'blur(8px)',
+            }}
+          />
+
+          {/* Animated bar fill */}
+          <div
+            className="h-full rounded-full relative"
+            style={{
+              width: isAnimating ? `${level}%` : '0%',
+              background: `linear-gradient(90deg, ${color}, ${color}66, ${color})`,
+              transition: `width 1.4s cubic-bezier(0.34, 1.56, 0.64, 1)`,
+              boxShadow: `0 0 12px ${color}66, inset 0 0 8px ${color}33`,
+            }}
+          >
+            {/* Moving shine effect */}
+            <div
+              className="absolute inset-0 rounded-full opacity-0 group-hover/bar:opacity-60"
+              style={{
+                background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)`,
+                animation: 'shimmer 2s infinite',
+              }}
+            />
+          </div>
+        </div>
+
+        {/* Futuristic accent line */}
+        <div
+          className="absolute bottom-0 left-0 h-px opacity-0 group-hover:opacity-100 transition-all duration-500"
+          style={{
+            width: isAnimating ? `${level}%` : '0%',
+            background: `linear-gradient(90deg, transparent, ${color}88)`,
+            transition: `all 1.4s cubic-bezier(0.34, 1.56, 0.64, 1)`,
           }}
         />
       </div>
@@ -56,7 +140,7 @@ export default function Skills() {
       <div className="absolute inset-x-0 bottom-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)' }} />
 
       <div className="max-w-6xl mx-auto">
-        <div className="reveal text-center mb-16">
+        <div className="reveal-top-strong text-center mb-16">
           <span
             className="inline-block text-[11px] font-semibold tracking-[3px] uppercase text-[#00d4ff] border border-[#00d4ff]/20 bg-[#00d4ff]/[0.05] px-4 py-1.5 rounded-full mb-5"
             style={{ fontFamily: 'JetBrains Mono, monospace' }}
@@ -72,9 +156,11 @@ export default function Skills() {
           </p>
         </div>
 
-        <div className="reveal grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-          {skills.map((s) => (
-            <SkillCard key={s.name} {...s} />
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+          {skills.map((s, i) => (
+            <div key={s.name} className={`reveal-zoom reveal-delay-${Math.min(i + 1, 12)}`}>
+              <SkillCard {...s} />
+            </div>
           ))}
         </div>
       </div>

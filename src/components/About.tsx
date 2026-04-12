@@ -13,7 +13,7 @@ export default function About() {
   return (
     <section id="about" className="relative py-28 px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="reveal text-center mb-16">
+        <div className="reveal-top-strong text-center mb-16">
           <span
             className="inline-block text-[11px] font-semibold tracking-[3px] uppercase text-[#00d4ff] border border-[#00d4ff]/20 bg-[#00d4ff]/[0.05] px-4 py-1.5 rounded-full mb-5"
             style={{ fontFamily: 'JetBrains Mono, monospace' }}
@@ -30,7 +30,7 @@ export default function About() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div className="reveal order-2 lg:order-1">
+          <div className="reveal-left reveal-delay-2 order-2 lg:order-1">
             <div className="relative">
               <div
                 className="rounded-2xl border border-white/[0.07] p-10 flex items-center justify-center overflow-hidden"
@@ -87,15 +87,16 @@ export default function About() {
             </div>
 
             <div className="flex flex-wrap gap-2.5 mt-8">
-              {pills.map(({ icon: Icon, label }) => (
-                <span
-                  key={label}
-                  className="inline-flex items-center gap-2 text-[13px] text-[#9ca3af] border border-white/[0.07] px-3.5 py-2 rounded-lg hover:border-[#00d4ff]/30 hover:text-white transition-all duration-200 cursor-default"
-                  style={{ background: 'rgba(255,255,255,0.02)' }}
-                >
-                  <Icon size={13} className="text-[#00d4ff]" />
-                  {label}
-                </span>
+              {pills.map(({ icon: Icon, label }, i) => (
+                <div key={label} className={`reveal reveal-delay-${i + 3}`}>
+                  <span
+                    className="inline-flex items-center gap-2 text-[13px] text-[#9ca3af] border border-white/[0.07] px-3.5 py-2 rounded-lg hover:border-[#00d4ff]/30 hover:text-white transition-all duration-200 cursor-default"
+                    style={{ background: 'rgba(255,255,255,0.02)' }}
+                  >
+                    <Icon size={13} className="text-[#00d4ff]" />
+                    {label}
+                  </span>
+                </div>
               ))}
             </div>
           </div>

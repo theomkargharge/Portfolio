@@ -85,8 +85,8 @@ export default function Hero() {
           </div>
           
           <div className="animate-fade-up delay-400 flex gap-10 pt-8 border-t border-white/[0.06]">
-            {stats.map((s) => (
-              <div key={s.label}>
+            {stats.map((s, i) => (
+              <div key={s.label} className={`reveal reveal-delay-${i + 5}`}>
                 <div className="text-[32px] font-black text-white stat-glow leading-none tracking-tight mb-1">
                   <span style={{ color: '#00d4ff' }}>{s.num.replace(/[^0-9M]/g, '')}</span>
                   {s.num.includes('+') ? <span className="text-white">+</span> : null}

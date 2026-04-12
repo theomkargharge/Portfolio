@@ -44,7 +44,7 @@ export default function Experience() {
   return (
     <section id="experience" className="relative py-28 px-6">
       <div className="max-w-4xl mx-auto">
-        <div className="reveal text-center mb-16">
+        <div className="reveal-top-strong text-center mb-16">
           <span
             className="inline-block text-[11px] font-semibold tracking-[3px] uppercase text-[#00d4ff] border border-[#00d4ff]/20 bg-[#00d4ff]/[0.05] px-4 py-1.5 rounded-full mb-5"
             style={{ fontFamily: 'JetBrains Mono, monospace' }}
@@ -65,7 +65,7 @@ export default function Experience() {
 
           <div className="flex flex-col gap-10">
             {experiences.map((exp, i) => (
-              <div key={i} className={`reveal reveal-delay-${Math.min(i + 1, 4)} relative`}>
+              <div key={i} className={`${i % 2 === 0 ? 'reveal-left' : 'reveal-right'} reveal-delay-${Math.min(i + 1, 4)} relative`}>
                 <div
                   className="absolute -left-8 md:-left-12 top-[22px] translate-x-[3px] w-4 h-4 rounded-full border-2 flex items-center justify-center"
                   style={{
