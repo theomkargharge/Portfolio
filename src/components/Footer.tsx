@@ -1,50 +1,51 @@
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowUp, Github, Linkedin, Mail } from 'lucide-react';
+import { profile } from '../data';
 
 export default function Footer() {
   return (
-    <footer
-      className="border-t border-white/[0.06] px-6 py-8 reveal-top"
-      style={{ background: '#080808' }}
-    >
-      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <span
-            className="text-[15px] font-bold text-white"
-            style={{ fontFamily: 'JetBrains Mono, monospace' }}
-          >
-            <span style={{ color: '#00d4ff' }}>&lt;</span>
-            OG
-            <span style={{ color: '#00d4ff' }}>/&gt;</span>
-          </span>
-          <span className="text-[#374151]">·</span>
-          <span className="text-[13px] text-[#4b5563]">Flutter Developer — Pune, India</span>
+    <footer className="relative overflow-hidden border-t border-white/[0.06] pt-14">
+      <div className="mx-auto flex max-w-6xl flex-col gap-8 px-5 sm:px-6 md:flex-row md:items-center md:justify-between">
+        <div>
+          <div className="text-[15px] font-medium text-fg">{profile.name}</div>
+          <div className="mt-1 text-[13.5px] text-fg-3">
+            {profile.role} · {profile.location}
+          </div>
         </div>
 
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-2">
           {[
-            { icon: Github, href: 'https://github.com/theomkargharge', label: 'GitHub' },
-            { icon: Linkedin, href: 'https://www.linkedin.com/in/omkar-gharge-a98a59182/', label: 'LinkedIn' },
-            { icon: Mail, href: 'mailto:omkarghargeog@gmail.com', label: 'Email' },
+            { icon: Github, href: profile.github, label: 'GitHub' },
+            { icon: Linkedin, href: profile.linkedin, label: 'LinkedIn' },
+            { icon: Mail, href: `mailto:${profile.email}`, label: 'Email' },
           ].map(({ icon: Icon, href, label }) => (
             <a
               key={label}
               href={href}
               target={href.startsWith('http') ? '_blank' : undefined}
-              rel="noopener noreferrer"
+              rel="noreferrer"
               aria-label={label}
-              className="w-8 h-8 flex items-center justify-center rounded-lg border border-white/[0.07] text-[#6b7280] hover:text-[#00d4ff] hover:border-[#00d4ff]/30 transition-all duration-200"
-              style={{ background: 'rgba(255,255,255,0.02)' }}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.08] text-fg-3 transition-colors hover:border-white/20 hover:text-fg"
             >
-              <Icon size={14} />
+              <Icon size={16} />
             </a>
           ))}
+          <a
+            href="#top"
+            aria-label="Back to top"
+            className="ml-2 flex h-10 items-center gap-2 rounded-full border border-white/[0.08] px-4 text-[13px] text-fg-2 transition-colors hover:border-white/20 hover:text-fg"
+          >
+            Top <ArrowUp size={14} />
+          </a>
         </div>
+      </div>
 
-        <div className="text-[12px] text-[#374151]">
-          © 2026{' '}
-          <span className="text-[#6b7280]">Omkar Gharge</span>
-          {' '}— All rights reserved
-        </div>
+      <div className="mx-auto mt-10 flex max-w-6xl flex-col gap-2 px-5 text-[12.5px] text-fg-4 sm:flex-row sm:justify-between sm:px-6">
+        <span>© {new Date().getFullYear()} {profile.name}. All rights reserved.</span>
+        <span>Designed &amp; built by Omkar · React + Tailwind</span>
+      </div>
+
+      <div className="wordmark pointer-events-none mt-8 select-none whitespace-nowrap text-center" aria-hidden="true">
+        Omkar Gharge
       </div>
     </footer>
   );

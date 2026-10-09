@@ -1,106 +1,75 @@
-import { Mail, Linkedin, Github, Phone, MapPin, ArrowUpRight } from 'lucide-react';
+import { useState, type CSSProperties } from 'react';
+import { ArrowUpRight, Check, Copy, FileText, Github, Linkedin, Mail, Phone } from 'lucide-react';
+import { profile } from '../data';
 
-const contactLinks = [
-  {
-    label: 'Send Email',
-    sub: 'omkarghargeog@gmail.com',
-    icon: Mail,
-    href: 'mailto:omkarghargeog@gmail.com',
-    primary: true,
-  },
-  {
-    label: 'LinkedIn',
-    sub: 'omkar-gharge',
-    icon: Linkedin,
-    href: 'https://www.linkedin.com/in/omkar-gharge-a98a59182/',
-    primary: false,
-  },
-  {
-    label: 'GitHub',
-    sub: 'theomkargharge',
-    icon: Github,
-    href: 'https://github.com/theomkargharge',
-    primary: false,
-  },
-];
+const d = (ms: number) => ({ '--d': `${ms}ms` }) as CSSProperties;
 
-const info = [
-  { icon: Mail, label: 'Email', value: 'omkarghargeog@gmail.com' },
-  { icon: Phone, label: 'Phone', value: '+91 85303 23286' },
-  { icon: MapPin, label: 'Location', value: 'Pune, Maharashtra, India' },
+const links = [
+  { icon: Linkedin, label: 'LinkedIn', href: profile.linkedin },
+  { icon: Github, label: 'GitHub', href: profile.github },
+  { icon: FileText, label: 'Résumé', href: profile.resume },
+  { icon: Phone, label: profile.phone, href: profile.phoneHref },
 ];
 
 export default function Contact() {
+  const [copied, setCopied] = useState(false);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(profile.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {
+      window.location.href = `mailto:${profile.email}`;
+    }
+  };
+
   return (
-    <section id="contact" className="relative py-28 px-6">
-      <div className="orb orb-cyan" style={{ width: 500, height: 500, bottom: -200, right: -100, animationDelay: '-2s' }} />
+    <section id="contact" className="relative py-24 sm:py-32">
+      <div className="mx-auto max-w-6xl px-5 sm:px-6">
+        <div className="reveal card relative px-6 py-16 text-center sm:px-12 sm:py-24">
+          <div className="absolute inset-0 -z-10" style={{ background: 'radial-gradient(70% 60% at 50% 0%, rgba(124,108,255,0.22), transparent 70%)' }} />
+          <div className="hero-grid absolute inset-0 -z-10 opacity-70" />
 
-      <div className="relative z-10 max-w-3xl mx-auto text-center">
-        <div className="reveal-bottom-strong">
-          <span
-            className="inline-block text-[11px] font-semibold tracking-[3px] uppercase text-[#00d4ff] border border-[#00d4ff]/20 bg-[#00d4ff]/[0.05] px-4 py-1.5 rounded-full mb-5"
-            style={{ fontFamily: 'JetBrains Mono, monospace' }}
-          >
+          <div className="eyebrow flex items-center justify-center gap-3">
+            <span className="text-fg-2">05</span>
+            <span className="h-px w-8 bg-white/15" />
             Contact
-          </span>
-          <h2 className="text-[clamp(28px,4vw,52px)] font-black tracking-[-2px] leading-[1.1] mb-4">
-            Let's build something{' '}
-            <span className="gradient-text-cyan">great</span>
+          </div>
+
+          <h2 className="display mx-auto mt-6 max-w-4xl text-balance text-[clamp(38px,6.2vw,80px)] text-fg">
+            Have an idea worth shipping?{' '}
+            <span className="serif-accent text-grad block pr-2">Let’s build it.</span>
           </h2>
-          <p className="text-[17px] text-[#6b7280] max-w-lg mx-auto">
-            Open to new opportunities, collaborations, and interesting Flutter projects. My inbox is always open.
+
+          <p className="mx-auto mt-6 max-w-xl text-[16.5px] leading-relaxed text-fg-2">
+            A mobile app, an AI feature, or a role on your team — I’m open to new opportunities and collaborations. Email is the fastest way to reach me.
           </p>
-        </div>
 
-        <div
-          className="reveal-blur contact-glow rounded-2xl border border-white/[0.07] p-8 md:p-12 mt-12 relative overflow-hidden"
-          style={{ background: '#0c0c0c' }}
-        >
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(0,212,255,0.04) 0%, transparent 60%)' }}
-          />
+          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <a href={`mailto:${profile.email}`} className="btn btn-primary !h-12 !px-6">
+              <Mail size={16} /> Send an email
+            </a>
+            <button onClick={copy} className="btn btn-ghost !h-12 !px-5 font-mono !text-[13.5px]" aria-live="polite">
+              {copied ? <Check size={15} className="text-[#4ade80]" /> : <Copy size={15} className="text-fg-3" />}
+              {copied ? 'Copied to clipboard' : profile.email}
+            </button>
+          </div>
 
-          <div className="relative z-10">
-            <div className="flex flex-wrap justify-center gap-3 mb-10">
-              {contactLinks.map((c, i) => (
-                <div key={c.label} className={`reveal-pop reveal-delay-${i + 1}`}>
-                  <a
-                    href={c.href}
-                    target={c.href.startsWith('http') ? '_blank' : undefined}
-                    rel="noopener noreferrer"
-                    className={`btn-shimmer inline-flex items-center gap-2.5 px-6 py-3 rounded-xl font-semibold text-[14px] transition-all duration-200 group ${
-                      c.primary
-                        ? 'bg-[#00d4ff] text-black hover:bg-white'
-                        : 'bg-white/[0.04] border border-white/[0.1] text-white hover:border-[#00d4ff]/40 hover:text-[#00d4ff]'
-                    }`}
-                  >
-                    <c.icon size={16} />
-                    {c.label}
-                    <ArrowUpRight size={14} className="opacity-60 group-hover:opacity-100 transition-opacity" />
-                  </a>
-                </div>
-              ))}
-            </div>
-
-            <div className="section-divider mb-8" />
-
-            <div className="flex flex-wrap justify-center gap-8">
-              {info.map((item, i) => (
-                <div key={item.label} className={`reveal-bottom reveal-delay-${i + 4}`}>
-                  <div className="text-center">
-                    <div className="flex items-center justify-center gap-1.5 mb-1">
-                      <item.icon size={13} className="text-[#00d4ff]" />
-                      <span className="text-[11px] text-[#6b7280] font-semibold uppercase tracking-wider"
-                        style={{ fontFamily: 'JetBrains Mono, monospace' }}>
-                        {item.label}
-                      </span>
-                    </div>
-                    <div className="text-[14px] text-[#e2e8f0] font-medium">{item.value}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="mx-auto mt-12 flex max-w-2xl flex-wrap items-center justify-center gap-x-7 gap-y-3 border-t border-white/[0.07] pt-8" style={d(0)}>
+            {links.map(({ icon: Icon, label, href }) => (
+              <a
+                key={label}
+                href={href}
+                target={href.startsWith('http') || href.endsWith('.pdf') ? '_blank' : undefined}
+                rel="noreferrer"
+                className="group inline-flex items-center gap-2 text-[14px] text-fg-2 transition-colors hover:text-fg"
+              >
+                <Icon size={15} className="text-fg-3 transition-colors group-hover:text-fg" />
+                <span className="link-u">{label}</span>
+                {href.startsWith('http') && <ArrowUpRight size={13} className="text-fg-3" />}
+              </a>
+            ))}
           </div>
         </div>
       </div>

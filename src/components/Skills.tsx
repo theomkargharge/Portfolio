@@ -1,167 +1,106 @@
-const skills = [
-  { name: 'Flutter', tag: 'primary SDK', level: 95, color: '#00d4ff' },
-  { name: 'Dart', tag: 'language', level: 92, color: '#00d4ff' },
-  { name: 'Java', tag: 'language', level: 70, color: '#f59e0b' },
-  { name: 'Firebase', tag: 'backend', level: 88, color: '#f59e0b' },
-  { name: 'Supabase', tag: 'backend', level: 78, color: '#10b981' },
-  { name: 'GetX', tag: 'state mgmt', level: 90, color: '#00d4ff' },
-  { name: 'Riverpod', tag: 'state mgmt', level: 82, color: '#00d4ff' },
-  { name: 'WebSocket', tag: 'real-time', level: 85, color: '#10b981' },
-  { name: 'Google Maps', tag: 'API', level: 87, color: '#f59e0b' },
-  { name: 'Razorpay', tag: 'payments', level: 83, color: '#f59e0b' },
-  { name: 'AWS S3', tag: 'cloud', level: 72, color: '#f59e0b' },
-  { name: 'Git / GitHub', tag: 'devops', level: 88, color: '#6b7280' },
-];
+import type { CSSProperties, ReactNode } from 'react';
+import { Brain, CreditCard, Plug, Server, Smartphone, Wrench } from 'lucide-react';
+import SectionHeading from './SectionHeading';
+import { skillGroups } from '../data';
 
-import { useEffect, useRef, useState } from 'react';
+type Group = { title: string; blurb: string; items: string[] };
 
-function SkillCard({ name, tag, level, color }: { name: string; tag: string; level: number; color: string }) {
-  const barRef = useRef<HTMLDivElement>(null);
-  const [isAnimating, setIsAnimating] = useState(false);
+const pipeline = ['Query', 'Embed', 'Vector DB', 'Retrieve', 'LLM', 'Agent'];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !isAnimating) {
-            setIsAnimating(true);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    if (barRef.current) {
-      observer.observe(barRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [isAnimating]);
-
+function GroupCard({ group, icon, className = '', delay = 0, children }: { group: Group; icon: ReactNode; className?: string; delay?: number; children?: ReactNode }) {
   return (
-    <div
-      className="glow-card group rounded-xl border border-white/[0.07] p-5 cursor-default overflow-hidden relative"
-      style={{ background: '#0c0c0c' }}
-    >
-      {/* Futuristic background glow */}
-      <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{
-          background: `radial-gradient(ellipse at 50% 0%, ${color}08, transparent 70%)`,
-          pointerEvents: 'none',
-        }}
-      />
-
-      <div className="relative z-10">
-        <div className="flex items-start justify-between mb-4">
-          <div>
-            <div className="text-[15px] font-semibold text-white tracking-tight">{name}</div>
-            <div
-              className="text-[11px] mt-1 font-medium opacity-75"
-              style={{ color, fontFamily: 'JetBrains Mono, monospace' }}
-            >
-              {tag}
-            </div>
-          </div>
-          <div
-            className="text-[12px] font-bold tabular-nums px-2.5 py-1 rounded-md"
-            style={{
-              color: color,
-              background: `${color}15`,
-              border: `1px solid ${color}30`,
-              fontFamily: 'JetBrains Mono, monospace',
-            }}
-          >
-            {level}%
-          </div>
-        </div>
-
-        {/* Animated progress bar */}
-        <div
-          ref={barRef}
-          className="relative h-[2px] rounded-full overflow-hidden group/bar"
-          style={{
-            background: 'rgba(255,255,255,0.05)',
-            boxShadow: `inset 0 0 0 1px ${color}10`,
-          }}
-        >
-          {/* Background glow effect */}
-          <div
-            className="absolute inset-0 opacity-0 group-hover/bar:opacity-100 transition-opacity duration-500"
-            style={{
-              background: `linear-gradient(90deg, transparent, ${color}30, transparent)`,
-              filter: 'blur(8px)',
-            }}
-          />
-
-          {/* Animated bar fill */}
-          <div
-            className="h-full rounded-full relative"
-            style={{
-              width: isAnimating ? `${level}%` : '0%',
-              background: `linear-gradient(90deg, ${color}, ${color}66, ${color})`,
-              transition: `width 1.4s cubic-bezier(0.34, 1.56, 0.64, 1)`,
-              boxShadow: `0 0 12px ${color}66, inset 0 0 8px ${color}33`,
-            }}
-          >
-            {/* Moving shine effect */}
-            <div
-              className="absolute inset-0 rounded-full opacity-0 group-hover/bar:opacity-60"
-              style={{
-                background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)`,
-                animation: 'shimmer 2s infinite',
-              }}
-            />
-          </div>
-        </div>
-
-        {/* Futuristic accent line */}
-        <div
-          className="absolute bottom-0 left-0 h-px opacity-0 group-hover:opacity-100 transition-all duration-500"
-          style={{
-            width: isAnimating ? `${level}%` : '0%',
-            background: `linear-gradient(90deg, transparent, ${color}88)`,
-            transition: `all 1.4s cubic-bezier(0.34, 1.56, 0.64, 1)`,
-          }}
-        />
+    <div className={`reveal card spot flex flex-col p-6 sm:p-8 ${className}`} style={{ '--d': `${delay}ms` } as CSSProperties}>
+      <div className="flex items-center gap-3">
+        <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-fg-2">{icon}</span>
+        <h3 className="text-[19px] font-semibold tracking-[-0.025em] text-fg">{group.title}</h3>
+      </div>
+      <p className="mt-3 max-w-md text-[14.5px] leading-relaxed text-fg-3">{group.blurb}</p>
+      {children}
+      <div className="mt-auto flex flex-wrap gap-1.5 pt-6">
+        {group.items.map((s) => (
+          <span key={s} className="chip">
+            {s}
+          </span>
+        ))}
       </div>
     </div>
   );
 }
 
 export default function Skills() {
+  const g = skillGroups;
   return (
-    <section
-      id="skills"
-      className="relative py-28 px-6"
-      style={{ background: '#080808' }}
-    >
-      <div className="absolute inset-x-0 top-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)' }} />
-      <div className="absolute inset-x-0 bottom-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)' }} />
+    <section id="stack" className="relative overflow-hidden py-24 sm:py-32">
+      <div className="glow left-1/2 top-1/3 h-[420px] w-[720px] -translate-x-1/2 bg-[#7c6cff]/[0.07]" />
+      <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
+        <SectionHeading
+          index="03"
+          label="Stack"
+          title={
+            <>
+              Mobile craft, <span className="serif-accent text-grad pr-1">AI fluency.</span>
+            </>
+          }
+          aside="The tools I reach for — from Flutter state management to retrieval pipelines and the infrastructure that serves them."
+        />
 
-      <div className="max-w-6xl mx-auto">
-        <div className="reveal-top-strong text-center mb-16">
-          <span
-            className="inline-block text-[11px] font-semibold tracking-[3px] uppercase text-[#00d4ff] border border-[#00d4ff]/20 bg-[#00d4ff]/[0.05] px-4 py-1.5 rounded-full mb-5"
-            style={{ fontFamily: 'JetBrains Mono, monospace' }}
-          >
-            Tech Stack
-          </span>
-          <h2 className="text-[clamp(28px,4vw,48px)] font-black tracking-[-2px] leading-[1.1]">
-            What I{' '}
-            <span className="gradient-text-cyan">work with</span>
-          </h2>
-          <p className="text-[17px] text-[#6b7280] mt-4 max-w-lg mx-auto">
-            A focused toolkit for building production-grade Flutter applications.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-          {skills.map((s, i) => (
-            <div key={s.name} className={`reveal-zoom reveal-delay-${Math.min(i + 1, 12)}`}>
-              <SkillCard {...s} />
+        <div className="grid gap-4 md:grid-cols-6">
+          <GroupCard group={g.ai} icon={<Brain size={17} />} className="md:col-span-4">
+            <div className="mt-7 rounded-2xl border border-white/[0.06] bg-black/20 p-4 sm:p-5">
+              <div className="eyebrow mb-4 !text-[10.5px]">RAG pipeline</div>
+              <div className="flex flex-wrap items-center gap-2 sm:gap-x-0 sm:gap-y-3">
+                {pipeline.map((n, i) => (
+                  <div key={n} className="flex items-center">
+                    <span
+                      className="pipe-node rounded-lg border border-white/[0.07] bg-white/[0.02] px-3 py-1.5 font-mono text-[12px] text-fg-2"
+                      style={{ '--i': i } as CSSProperties}
+                    >
+                      {n}
+                    </span>
+                    {i < pipeline.length - 1 && <span className="mx-1.5 hidden h-px w-6 bg-white/15 sm:block" />}
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
+          </GroupCard>
+
+          <GroupCard group={g.mobile} icon={<Smartphone size={17} />} className="md:col-span-2" delay={80}>
+            <div className="mt-7 space-y-2">
+              {[
+                { os: 'iOS', store: 'App Store' },
+                { os: 'Android', store: 'Google Play' },
+              ].map((t) => (
+                <div key={t.os} className="flex items-center justify-between rounded-xl border border-white/[0.06] bg-black/20 px-3.5 py-2.5 font-mono text-[12px]">
+                  <span className="text-fg">{t.os}</span>
+                  <span className="flex items-center gap-2 text-fg-3">
+                    {t.store} <span className="h-1.5 w-1.5 rounded-full bg-[#4ade80]" />
+                  </span>
+                </div>
+              ))}
+            </div>
+          </GroupCard>
+          <GroupCard group={g.backend} icon={<Server size={17} />} className="md:col-span-2" delay={0} />
+          <GroupCard group={g.payments} icon={<CreditCard size={17} />} className="md:col-span-2" delay={80} />
+          <GroupCard group={g.integrations} icon={<Plug size={17} />} className="md:col-span-2" delay={160} />
+
+          <div className="reveal card spot grid gap-6 p-6 sm:p-8 md:col-span-6 md:grid-cols-[280px_1fr] md:items-center">
+            <div>
+              <div className="flex items-center gap-3">
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-fg-2">
+                  <Wrench size={17} />
+                </span>
+                <h3 className="text-[19px] font-semibold tracking-[-0.025em] text-fg">{g.tools.title}</h3>
+              </div>
+              <p className="mt-3 text-[14.5px] leading-relaxed text-fg-3">{g.tools.blurb}</p>
+            </div>
+            <div className="flex flex-wrap gap-1.5 md:justify-end">
+              {g.tools.items.map((s) => (
+                <span key={s} className="chip">
+                  {s}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

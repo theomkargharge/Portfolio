@@ -1,103 +1,82 @@
-import { MapPin, Briefcase, GraduationCap, Rocket, Smartphone } from 'lucide-react';
-import profileImg from './151fd57aafc318b7-f4cfc689-cd5e-4d00-ab26-280280fb6680.png';
+import type { CSSProperties } from 'react';
+import { GraduationCap } from 'lucide-react';
+import portrait from '../assets/portrait.jpg';
+import { education, profile } from '../data';
 
-const pills = [
-  { icon: MapPin, label: 'Pune, Maharashtra' },
-  { icon: Smartphone, label: 'iOS & Android' },
-  { icon: Rocket, label: '1M+ Downloads' },
-  { icon: Briefcase, label: 'Open to Work' },
-  { icon: GraduationCap, label: 'B.Tech CSE — 8.47 CGPA' },
+const d = (ms: number) => ({ '--d': `${ms}ms` }) as CSSProperties;
+
+const facts = [
+  { k: 'Based in', v: 'Pune, India · IST' },
+  { k: 'Currently', v: 'Flutter Developer, Benzy Infotech' },
+  { k: 'Exploring', v: 'LLM agents & RAG in mobile apps' },
+  { k: 'Shipped', v: '4 apps on the App Store & Play' },
 ];
 
 export default function About() {
   return (
-    <section id="about" className="relative py-28 px-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="reveal-top-strong text-center mb-16">
-          <span
-            className="inline-block text-[11px] font-semibold tracking-[3px] uppercase text-[#00d4ff] border border-[#00d4ff]/20 bg-[#00d4ff]/[0.05] px-4 py-1.5 rounded-full mb-5"
-            style={{ fontFamily: 'JetBrains Mono, monospace' }}
-          >
-            About Me
-          </span>
-          <h2 className="text-[clamp(28px,4vw,48px)] font-black tracking-[-2px] leading-[1.1]">
-            Building apps that{' '}
-            <span className="gradient-text-cyan">millions</span> love
-          </h2>
-          <p className="text-[17px] text-[#6b7280] mt-4 max-w-lg mx-auto">
-            From a curious CS student to a production Flutter developer shipping apps at scale.
-          </p>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div className="reveal-left reveal-delay-2 order-2 lg:order-1">
-            <div className="relative">
-              <div
-                className="rounded-2xl border border-white/[0.07] p-10 flex items-center justify-center overflow-hidden"
-                style={{ background: '#080808', aspectRatio: '1', minHeight: 320 }}
-              >
-                <img
-                  src={profileImg}
-                  alt="Omkar Gharge"
-                  className="w-full h-full object-cover rounded-2xl"
-                />
+    <section id="about" className="relative py-24 sm:py-32">
+      <div className="mx-auto grid max-w-6xl gap-12 px-5 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
+        <div className="reveal relative mx-auto w-full max-w-[440px] lg:mx-0">
+          <div className="glow -inset-6 bg-[#7c6cff]/[0.12]" />
+          <div className="relative overflow-hidden rounded-[28px] border border-white/[0.08]">
+            <img src={portrait} alt={`Portrait of ${profile.name}`} className="aspect-[4/5] w-full object-cover object-[50%_25%]" loading="lazy" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#08080a] via-[#08080a]/10 to-transparent" />
+            <div className="absolute inset-x-4 bottom-4 flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3 backdrop-blur-xl">
+              <div className="leading-tight">
+                <div className="text-[15px] font-medium text-fg">{profile.name}</div>
+                <div className="text-[12.5px] text-fg-3">{profile.role}</div>
               </div>
-
-              <div
-                className="absolute bottom-0 right-0 translate-x-4 translate-y-4 rounded-xl border border-white/[0.08] p-4 text-center"
-                style={{ background: '#0f0f0f', minWidth: 100 }}
-              >
-                <div className="text-[26px] font-black text-[#00d4ff] leading-none">8.47</div>
-                <div className="text-[11px] text-[#6b7280] mt-1 font-medium">CGPA</div>
-              </div>
-
-              <div
-                className="absolute top-4 left-4 rounded-xl border border-white/[0.08] p-3 flex items-center gap-2"
-                style={{ background: '#0f0f0f' }}
-              >
-                <span className="avail-dot" />
-                <span className="text-[12px] text-[#9ca3af]">Available</span>
-              </div>
+              <span className="inline-flex items-center gap-2 text-[12px] text-[#86efac]">
+                <span className="live-dot !h-1.5 !w-1.5" /> Available
+              </span>
             </div>
           </div>
+        </div>
 
-          <div className="reveal reveal-delay-2 order-1 lg:order-2">
-            <h3 className="text-[26px] font-bold tracking-tight mb-5">
-              Flutter Developer,{' '}
-              <span className="text-[#6b7280] font-normal">Pune India</span>
-            </h3>
-            <div className="space-y-4 text-[15px] text-[#9ca3af] leading-[1.8]">
-              <p>
-                I specialize in building high-performance, polished mobile applications using Flutter for both iOS and Android.
-                With{' '}
-                <span className="text-white font-medium">3+ years</span> of professional experience,
-                I've contributed to apps with over{' '}
-                <span className="text-[#00d4ff] font-semibold">1 million downloads</span>.
-              </p>
-              <p>
-                My expertise spans state management with <span className="text-white">GetX / Riverpod / Provider</span>,
-                real-time communication via WebSockets, payment gateway integrations (Razorpay, Tamara, Tabby),
-                and seamless third-party service integrations.
-              </p>
-              <p>
-                Currently at{' '}
-                <span className="text-white font-semibold">Benzy Infotech</span>,
-                maintaining and growing AkbarTravels — one of India's leading travel booking platforms.
-              </p>
-            </div>
+        <div className="flex flex-col justify-center">
+          <div className="reveal eyebrow flex items-center gap-3">
+            <span className="text-fg-2">04</span>
+            <span className="h-px w-8 bg-white/15" />
+            About
+          </div>
+          <h2 className="reveal display mt-5 text-balance text-[clamp(36px,4.6vw,58px)] text-fg" style={d(80)}>
+            An engineer who ships — <span className="serif-accent text-fg-2">and keeps learning.</span>
+          </h2>
 
-            <div className="flex flex-wrap gap-2.5 mt-8">
-              {pills.map(({ icon: Icon, label }, i) => (
-                <div key={label} className={`reveal reveal-delay-${i + 3}`}>
-                  <span
-                    className="inline-flex items-center gap-2 text-[13px] text-[#9ca3af] border border-white/[0.07] px-3.5 py-2 rounded-lg hover:border-[#00d4ff]/30 hover:text-white transition-all duration-200 cursor-default"
-                    style={{ background: 'rgba(255,255,255,0.02)' }}
-                  >
-                    <Icon size={13} className="text-[#00d4ff]" />
-                    {label}
-                  </span>
-                </div>
-              ))}
+          <div className="reveal mt-8 space-y-5 text-[16.5px] leading-[1.75] text-fg-2" style={d(160)}>
+            <p>
+              At Movilidad I built a complete ride-hailing platform — rider and driver apps — with live tracking, WebSocket dispatch and
+              background location. Since 2025 I’ve been at Benzy Infotech building <span className="text-fg">Akbar Travels</span>, a
+              flights-and-hotels app with more than a million downloads, including its real-time AI support chatbot.
+            </p>
+            <p>
+              On my own I built <span className="text-fg">TryWare AI</span> end to end — Flutter app, FastAPI backend, image-generation
+              pipeline, payments and deployment — and took it live on Google Play. That’s where mobile and Generative AI meet for me:
+              LLM features, RAG and agents that make apps genuinely more useful.
+            </p>
+          </div>
+
+          <dl className="reveal mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.07] sm:grid-cols-2" style={d(220)}>
+            {facts.map((f) => (
+              <div key={f.k} className="bg-[#0a0a0d] px-5 py-4">
+                <dt className="eyebrow !text-[10.5px]">{f.k}</dt>
+                <dd className="mt-1.5 text-[14.5px] text-fg">{f.v}</dd>
+              </div>
+            ))}
+          </dl>
+
+          <div className="reveal mt-4 flex items-start gap-4 rounded-2xl border border-white/[0.07] bg-white/[0.015] p-5" style={d(280)}>
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-fg-2">
+              <GraduationCap size={18} />
+            </span>
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <div className="text-[15px] font-medium text-fg">{education.degree}</div>
+                <div className="font-mono text-[12.5px] text-fg-3">{education.period}</div>
+              </div>
+              <div className="mt-1 text-[14px] text-fg-3">
+                {education.school} · <span className="text-fg-2">{education.grade}</span>
+              </div>
             </div>
           </div>
         </div>

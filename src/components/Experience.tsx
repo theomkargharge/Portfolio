@@ -1,127 +1,66 @@
-const experiences = [
-  {
-    company: 'Benzy Infotech · Akbar Group',
-    role: 'Flutter Developer',
-    period: 'Jan 2025 – Present',
-    active: true,
-    points: [
-      'Developing and maintaining AkbarTravels — a Flutter app with 1M+ downloads across iOS and Android.',
-      'Built core features for flights, hotels, visa services, and holiday packages with seamless UX.',
-      'Integrated CleverTap for push notifications, Deep Linking, and payment gateways (Razorpay, Tamara, Tabby).',
-      'Built a real-time AI ChatBot using WebSocket for ticket booking and live agent escalation.',
-      'Managed app deployment and updates on Google Play Store and Apple App Store.',
-    ],
-    tags: ['Flutter', 'GetX', 'WebSocket', 'Razorpay', 'CleverTap'],
-  },
-  {
-    company: 'Movilidad Technologies',
-    role: 'Flutter Developer',
-    period: 'Jun 2023 – Dec 2024',
-    active: false,
-    points: [
-      'Integrated Google Maps with real-time location tracking, improving navigation by 25% user engagement.',
-      'Implemented WebSocket for real-time communication, reducing data sync delays by 30%.',
-      'Developed background services for continuous location tracking — 20% uptime improvement.',
-      'Added custom animations and transitions, leading to a 15% boost in user retention.',
-      'Created fully responsive UI across device sizes, reducing design rework by 20%.',
-    ],
-    tags: ['Flutter', 'Google Maps', 'WebSocket', 'Firebase', 'AWS S3'],
-  },
-  {
-    company: 'Dr. BATU, Pune',
-    role: 'B.Tech in Computer Science & Engineering',
-    period: 'Feb 2019 – Jun 2023',
-    active: false,
-    points: [
-      'Graduated with a CGPA of 8.47 from Dr. Babasaheb Ambedkar Technological University.',
-      'Built foundational expertise in software engineering, algorithms, and mobile development.',
-    ],
-    tags: ['Computer Science', 'Algorithms', 'Java', 'CGPA 8.47'],
-  },
-];
+import type { CSSProperties } from 'react';
+import SectionHeading from './SectionHeading';
+import { experience } from '../data';
 
 export default function Experience() {
   return (
-    <section id="experience" className="relative py-28 px-6">
-      <div className="max-w-4xl mx-auto">
-        <div className="reveal-top-strong text-center mb-16">
-          <span
-            className="inline-block text-[11px] font-semibold tracking-[3px] uppercase text-[#00d4ff] border border-[#00d4ff]/20 bg-[#00d4ff]/[0.05] px-4 py-1.5 rounded-full mb-5"
-            style={{ fontFamily: 'JetBrains Mono, monospace' }}
-          >
-            Experience
-          </span>
-          <h2 className="text-[clamp(28px,4vw,48px)] font-black tracking-[-2px] leading-[1.1]">
-            My{' '}
-            <span className="gradient-text-cyan">professional journey</span>
-          </h2>
-        </div>
+    <section id="experience" className="relative py-24 sm:py-32">
+      <div className="mx-auto max-w-6xl px-5 sm:px-6">
+        <SectionHeading
+          index="02"
+          label="Experience"
+          title={
+            <>
+              3.5+ years of <span className="serif-accent text-fg-2">shipping to production.</span>
+            </>
+          }
+          aside="Two product teams, one focus: fast, reliable Flutter apps that people use every day."
+        />
 
-        <div className="relative pl-8 md:pl-12">
-          <div
-            className="absolute left-[11px] md:left-[15px] top-2 bottom-0 w-px"
-            style={{ background: 'linear-gradient(to bottom, #00d4ff, rgba(0,212,255,0.15), transparent)' }}
-          />
+        <ol className="border-b border-white/[0.07]">
+          {experience.map((job, i) => (
+            <li
+              key={job.company}
+              className="reveal group grid gap-6 border-t border-white/[0.07] py-10 sm:py-12 lg:grid-cols-[260px_1fr] lg:gap-12"
+              style={{ '--d': `${i * 80}ms` } as CSSProperties}
+            >
+              <div className="flex flex-row flex-wrap items-center gap-x-4 gap-y-2 lg:flex-col lg:items-start">
+                <span className="font-mono text-[13px] text-fg-2">{job.period}</span>
+                <span className="font-mono text-[13px] text-fg-3">{job.location}, India</span>
+                {job.current && (
+                  <span className="inline-flex items-center gap-2 rounded-full border border-[#4ade80]/20 bg-[#4ade80]/[0.06] px-2.5 py-1 text-[11.5px] font-medium text-[#86efac] lg:mt-2">
+                    <span className="live-dot !h-1.5 !w-1.5" /> Current
+                  </span>
+                )}
+              </div>
 
-          <div className="flex flex-col gap-10">
-            {experiences.map((exp, i) => (
-              <div key={i} className={`${i % 2 === 0 ? 'reveal-left' : 'reveal-right'} reveal-delay-${Math.min(i + 1, 4)} relative`}>
-                <div
-                  className="absolute -left-8 md:-left-12 top-[22px] translate-x-[3px] w-4 h-4 rounded-full border-2 flex items-center justify-center"
-                  style={{
-                    background: exp.active ? '#00d4ff' : '#0c0c0c',
-                    borderColor: exp.active ? '#00d4ff' : 'rgba(255,255,255,0.12)',
-                    boxShadow: exp.active ? '0 0 16px rgba(0,212,255,0.4)' : 'none',
-                    animation: exp.active ? 'glow-pulse 3s ease-in-out infinite' : 'none',
-                  }}
-                />
+              <div>
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <h3 className="text-[clamp(24px,2.6vw,32px)] font-semibold tracking-[-0.035em] text-fg">{job.company}</h3>
+                  <span className="text-[14px] text-fg-3">{job.detail}</span>
+                </div>
+                <div className="serif-accent mt-1 text-[22px] text-fg-2">{job.role}</div>
 
-                <div
-                  className="glow-card rounded-2xl border border-white/[0.07] p-6 md:p-8"
-                  style={{ background: '#0c0c0c' }}
-                >
-                  <div className="flex flex-wrap items-start justify-between gap-3 mb-1">
-                    <span
-                      className="text-[12px] font-semibold tracking-wider uppercase"
-                      style={{ color: '#00d4ff', fontFamily: 'JetBrains Mono, monospace' }}
-                    >
-                      {exp.company}
+                <ul className="mt-6 space-y-3.5">
+                  {job.points.map((p) => (
+                    <li key={p} className="flex gap-3.5 text-[15.5px] leading-[1.7] text-fg-2">
+                      <span className="mt-[11px] h-px w-3 shrink-0 bg-white/30" />
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-7 flex flex-wrap gap-1.5">
+                  {job.tags.map((t) => (
+                    <span key={t} className="chip">
+                      {t}
                     </span>
-                    <span
-                      className="text-[12px] text-[#6b7280] border border-white/[0.07] px-3 py-1 rounded-full"
-                      style={{ fontFamily: 'JetBrains Mono, monospace', background: 'rgba(255,255,255,0.02)' }}
-                    >
-                      {exp.period}
-                    </span>
-                  </div>
-
-                  <h3 className="text-[20px] font-bold tracking-tight mb-4">{exp.role}</h3>
-
-                  <ul className="space-y-2.5 mb-5">
-                    {exp.points.map((pt, j) => (
-                      <li key={j} className="flex items-start gap-3 text-[14px] text-[#9ca3af] leading-[1.65]">
-                        <span className="flex-shrink-0 mt-[5px]" style={{ color: '#00d4ff' }}>→</span>
-                        {pt}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="flex flex-wrap gap-2">
-                    {exp.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-[11px] font-medium px-2.5 py-1 rounded-md border border-white/[0.06] text-[#6b7280]"
-                        style={{ background: 'rgba(255,255,255,0.02)', fontFamily: 'JetBrains Mono, monospace' }}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );

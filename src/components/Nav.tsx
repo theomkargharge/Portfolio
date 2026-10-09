@@ -1,49 +1,68 @@
 import { useEffect, useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { ArrowUpRight, Menu, X } from 'lucide-react';
+import portrait from '../assets/portrait.jpg';
+import { profile } from '../data';
 
 const links = [
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Work', id: 'work' },
+  { label: 'Experience', id: 'experience' },
+  { label: 'Stack', id: 'stack' },
+  { label: 'About', id: 'about' },
+  { label: 'Contact', id: 'contact' },
 ];
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState('');
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.id);
+        });
+      },
+      { rootMargin: '-45% 0px -50% 0px' }
+    );
+    links.forEach((l) => {
+      const el = document.getElementById(l.id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  const solid = scrolled || open;
+
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
-        scrolled
-          ? 'bg-[#030303]/90 border-white/[0.08] backdrop-blur-xl'
-          : 'bg-transparent border-transparent'
-      }`}
-    >
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a
-          href="#"
-          className="text-[15px] font-bold tracking-tight text-white hover:text-[#00d4ff] transition-colors"
-          style={{ fontFamily: 'JetBrains Mono, monospace' }}
-        >
-          <span className="text-[#00d4ff]">&lt;</span>
-          OG
-          <span className="text-[#00d4ff]">/&gt;</span>
+    <header className="fixed inset-x-0 top-0 z-50 px-3 sm:px-4">
+      <nav
+        className={`mx-auto mt-3 flex h-14 max-w-6xl items-center justify-between rounded-full border pl-2 pr-2 transition-all duration-500 ${
+          solid
+            ? 'border-white/[0.08] bg-[#0b0b0e]/75 shadow-[0_10px_40px_-12px_rgba(0,0,0,0.7)] backdrop-blur-xl'
+            : 'border-transparent bg-transparent'
+        }`}
+      >
+        <a href="#top" className="group flex items-center gap-2.5 rounded-full py-1 pl-1 pr-3" onClick={() => setOpen(false)}>
+          <img src={portrait} alt="" className="h-8 w-8 rounded-full object-cover ring-1 ring-white/15" />
+          <span className="text-[14.5px] font-medium tracking-[-0.01em] text-fg">{profile.name}</span>
         </a>
 
-        <ul className="hidden md:flex items-center gap-8">
+        <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex">
           {links.map((l) => (
-            <li key={l.href}>
+            <li key={l.id}>
               <a
-                href={l.href}
-                className="text-[13px] font-medium text-[#6b7280] hover:text-white transition-colors duration-200 tracking-wide"
+                href={`#${l.id}`}
+                className={`rounded-full px-3.5 py-1.5 text-[13.5px] transition-colors duration-200 ${
+                  active === l.id ? 'bg-white/[0.07] text-fg' : 'text-fg-2 hover:text-fg'
+                }`}
               >
                 {l.label}
               </a>
@@ -51,41 +70,53 @@ export default function Nav() {
           ))}
         </ul>
 
-        <a
-          href="mailto:omkarghargeog@gmail.com"
-          className="hidden md:inline-flex items-center gap-2 btn-shimmer bg-[#00d4ff] text-black text-[13px] font-semibold px-5 py-2 rounded-lg hover:bg-white transition-colors duration-200"
-        >
-          Hire Me
-        </a>
-
-        <button
-          className="md:hidden text-[#6b7280] hover:text-white transition-colors"
-          onClick={() => setOpen(!open)}
-        >
-          {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
-      </div>
-
-      {open && (
-        <div className="md:hidden bg-[#080808] border-t border-white/[0.06] px-6 py-4 flex flex-col gap-4">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              className="text-[14px] text-[#9ca3af] hover:text-white transition-colors py-1"
-            >
-              {l.label}
-            </a>
-          ))}
+        <div className="hidden items-center gap-1.5 md:flex">
           <a
-            href="mailto:omkarghargeog@gmail.com"
-            className="inline-flex w-fit items-center gap-2 bg-[#00d4ff] text-black text-[13px] font-semibold px-5 py-2 rounded-lg mt-1"
+            href={profile.resume}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-full px-3.5 py-2 text-[13.5px] text-fg-2 transition-colors hover:text-fg"
           >
-            Hire Me
+            Résumé
+          </a>
+          <a href="#contact" className="btn btn-primary !h-10 !px-4 !text-[13.5px]">
+            Let’s talk <ArrowUpRight size={15} className="arrow arrow-up" />
           </a>
         </div>
+
+        <button
+          className="flex h-10 w-10 items-center justify-center rounded-full text-fg-2 transition-colors hover:bg-white/[0.06] hover:text-fg md:hidden"
+          onClick={() => setOpen(!open)}
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
+        >
+          {open ? <X size={19} /> : <Menu size={19} />}
+        </button>
+      </nav>
+
+      {open && (
+        <div className="intro mx-auto mt-2 max-w-6xl rounded-3xl border border-white/[0.08] bg-[#0b0b0e]/95 p-3 backdrop-blur-xl md:hidden" style={{ ['--d' as string]: '0ms' }}>
+          {links.map((l) => (
+            <a
+              key={l.id}
+              href={`#${l.id}`}
+              onClick={() => setOpen(false)}
+              className="flex items-center justify-between rounded-2xl px-4 py-3.5 text-[17px] text-fg transition-colors hover:bg-white/[0.04]"
+            >
+              {l.label}
+              <span className="font-mono text-[11px] text-fg-3">{`#${l.id}`}</span>
+            </a>
+          ))}
+          <div className="mt-2 grid grid-cols-2 gap-2 border-t border-white/[0.06] pt-3">
+            <a href={profile.resume} target="_blank" rel="noreferrer" className="btn btn-ghost">
+              Résumé
+            </a>
+            <a href="#contact" onClick={() => setOpen(false)} className="btn btn-primary">
+              Let’s talk
+            </a>
+          </div>
+        </div>
       )}
-    </nav>
+    </header>
   );
 }
