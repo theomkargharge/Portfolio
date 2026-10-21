@@ -9,7 +9,7 @@ export const profile = {
   phoneHref: 'tel:+918530323286',
   linkedin: 'https://www.linkedin.com/in/omkargharge/',
   github: 'https://github.com/theomkargharge',
-  resume: `${import.meta.env.BASE_URL}Omkar_Gharge_Resume.pdf`,
+  resume: 'https://drive.google.com/file/d/1Nefl8UEMuC9PYHIPI2z4QUsDS782VKPP/view?usp=sharing',
 };
 
 export const stats = [
