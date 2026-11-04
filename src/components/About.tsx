@@ -18,16 +18,16 @@ export default function About() {
     <section id="about" className="relative py-24 sm:py-32">
       <div className="mx-auto grid max-w-6xl gap-12 px-5 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
         <div className="reveal relative mx-auto w-full max-w-[440px] lg:mx-0">
-          <div className="glow -inset-6 bg-[#7c6cff]/[0.12]" />
-          <div className="relative overflow-hidden rounded-[28px] border border-white/[0.08]">
+          <div className="glow -inset-6 bg-accent/[0.12]" />
+          <div className="relative overflow-hidden rounded-[28px] border border-line/[0.08]">
             <img src={portrait} alt={`Portrait of ${profile.name}`} className="aspect-[4/5] w-full object-cover object-[50%_25%]" loading="lazy" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#08080a] via-[#08080a]/10 to-transparent" />
-            <div className="absolute inset-x-4 bottom-4 flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3 backdrop-blur-xl">
+            <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/10 to-transparent" />
+            <div className="absolute inset-x-4 bottom-4 flex items-center justify-between rounded-2xl border border-line/10 bg-surface/60 px-4 py-3 backdrop-blur-xl">
               <div className="leading-tight">
                 <div className="text-[15px] font-medium text-fg">{profile.name}</div>
                 <div className="text-[12.5px] text-fg-3">{profile.role}</div>
               </div>
-              <span className="inline-flex items-center gap-2 text-[12px] text-[#86efac]">
+              <span className="inline-flex items-center gap-2 text-[12px] text-ok">
                 <span className="live-dot !h-1.5 !w-1.5" /> Available
               </span>
             </div>
@@ -39,7 +39,7 @@ export default function About() {
         <div className="flex flex-col justify-center">
           <div className="reveal eyebrow flex items-center gap-3">
             <span className="text-fg-2">04</span>
-            <span className="h-px w-8 bg-white/15" />
+            <span className="h-px w-8 bg-line/15" />
             About
           </div>
           <h2 className="reveal display mt-5 text-balance text-[clamp(36px,4.6vw,58px)] text-fg" style={d(80)}>
@@ -59,17 +59,17 @@ export default function About() {
             </p>
           </div>
 
-          <dl className="reveal mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.07] sm:grid-cols-2" style={d(220)}>
+          <dl className="reveal mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line/[0.07] bg-line/[0.07] sm:grid-cols-2" style={d(220)}>
             {facts.map((f) => (
-              <div key={f.k} className="bg-[#0a0a0d] px-5 py-4">
+              <div key={f.k} className="bg-surface px-5 py-4">
                 <dt className="eyebrow !text-[10.5px]">{f.k}</dt>
                 <dd className="mt-1.5 text-[14.5px] text-fg">{f.v}</dd>
               </div>
             ))}
           </dl>
 
-          <div className="reveal mt-4 flex items-start gap-4 rounded-2xl border border-white/[0.07] bg-white/[0.015] p-5" style={d(280)}>
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-fg-2">
+          <div className="reveal mt-4 flex items-start gap-4 rounded-2xl border border-line/[0.07] bg-line/[0.015] p-5" style={d(280)}>
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-line/[0.08] bg-line/[0.03] text-fg-2">
               <GraduationCap size={18} />
             </span>
             <div className="min-w-0 flex-1">

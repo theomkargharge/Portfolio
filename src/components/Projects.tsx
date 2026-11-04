@@ -19,10 +19,10 @@ const HOME_ACCENT = { '--accent': '139 123 255' } as CSSProperties;
 function FloatChip({ icon, children, delay = '0s' }: { icon: ReactNode; children: ReactNode; delay?: string }) {
   return (
     <div
-      className="float-y flex w-fit items-center gap-2 whitespace-nowrap rounded-full border border-white/10 bg-[#0f0f13]/85 py-1.5 pl-1.5 pr-3.5 text-[12.5px] text-fg shadow-[0_16px_40px_-16px_rgba(0,0,0,0.9)] backdrop-blur-xl"
+      className="float-y flex w-fit items-center gap-2 whitespace-nowrap rounded-full border border-line/10 bg-surface/85 py-1.5 pl-1.5 pr-3.5 text-[12.5px] text-fg shadow-[0_16px_40px_-16px_var(--shadow)] backdrop-blur-xl"
       style={{ animationDelay: delay }}
     >
-      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/[0.07]">{icon}</span>
+      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-line/[0.07]">{icon}</span>
       {children}
     </div>
   );
@@ -79,12 +79,12 @@ function Intro({ onPick, touch = false }: { onPick: (i: number) => void; touch?:
         Each screen is an animated mock-up of the real product — flight search, GenAI try-on, live ride tracking and an in-app network
         inspector.
       </p>
-      <ol className="mt-8 border-t border-white/[0.07]">
+      <ol className="mt-8 border-t border-line/[0.07]">
         {projects.map((p, i) => {
           const look = APP_LOOK[p.id];
           return (
             <li key={p.id}>
-              <button type="button" onClick={() => onPick(i)} className="group flex w-full items-center gap-4 border-b border-white/[0.07] py-3.5 text-left">
+              <button type="button" onClick={() => onPick(i)} className="group flex w-full items-center gap-4 border-b border-line/[0.07] py-3.5 text-left">
                 <span className="w-6 font-mono text-[12px] text-fg-3">{p.index}</span>
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]" style={{ background: look.icon }}>
                   <look.Glyph size={16} strokeWidth={2} />
@@ -127,9 +127,9 @@ function ProjectInfo({ project }: { project: Project }) {
 
       <p className="mt-6 text-[16px] leading-[1.7] text-fg-2">{project.summary}</p>
 
-      <div className={`mt-8 grid border-y border-white/[0.07] ${project.metrics.length === 3 ? 'grid-cols-3' : 'grid-cols-2'}`}>
+      <div className={`mt-8 grid border-y border-line/[0.07] ${project.metrics.length === 3 ? 'grid-cols-3' : 'grid-cols-2'}`}>
         {project.metrics.map((m, i) => (
-          <div key={m.label} className={`py-4 ${i > 0 ? 'border-l border-white/[0.07] pl-4 sm:pl-5' : ''}`}>
+          <div key={m.label} className={`py-4 ${i > 0 ? 'border-l border-line/[0.07] pl-4 sm:pl-5' : ''}`}>
             <div className="text-[clamp(18px,2vw,24px)] font-semibold tracking-[-0.03em] text-fg">{m.value}</div>
             <div className="mt-0.5 text-[12.5px] text-fg-3">{m.label}</div>
           </div>
@@ -225,7 +225,7 @@ function useDrag(motion: PhoneMotion, width: () => number, onRelease?: (target: 
 
 function Rail({ active, onPick, thumb }: { active: number; onPick: (q: number) => void; thumb: RefObject<HTMLDivElement> }) {
   return (
-    <div className="relative flex items-center gap-1 rounded-full border border-white/[0.08] bg-[#0b0b0e]/70 p-1 backdrop-blur-md">
+    <div className="relative flex items-center gap-1 rounded-full border border-line/[0.08] bg-surface/70 p-1 backdrop-blur-md">
       <div ref={thumb} className="rail-thumb" aria-hidden="true" />
       {[-1, ...projects.map((_, i) => i)].map((q) => (
         <button
@@ -510,7 +510,7 @@ function SwipeShowcase() {
         <button type="button" onClick={() => go(active - 1)} disabled={active < 0} aria-label="Previous app" className="ctl-btn">
           <ChevronLeft size={18} />
         </button>
-        <div className="flex items-center rounded-full border border-white/[0.08] bg-white/[0.03] px-2">
+        <div className="flex items-center rounded-full border border-line/[0.08] bg-line/[0.03] px-2">
           {[-1, ...projects.map((_, i) => i)].map((q) => (
             <button
               key={q}

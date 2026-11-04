@@ -17,7 +17,7 @@ const PLANETS = [
   { name: 'Dart', color: '#7dd3fc', ring: 1, at: 0.16 },
   { name: 'LangChain', color: '#a3e635', ring: 1, at: 0.41 },
   { name: 'Firebase', color: '#fbbf24', ring: 1, at: 0.66 },
-  { name: 'Gemini', color: '#c4b5fd', ring: 1, at: 0.91 },
+  { name: 'Gemini', color: '#a5b4fc', ring: 1, at: 0.91 },
 ];
 
 const CENTER_Y = 0.94; // ring centre, as a fraction of the phone's height — at its base, so the near side clears the chat
@@ -145,9 +145,9 @@ export default function TechOrbit({ children }: { children: ReactNode }) {
         <svg ref={front} className="orbit-ring orbit-ring--front" aria-hidden="true">
           <defs>
             <linearGradient id="ring-front" x1="0" x2="1" y1="0" y2="0">
-              <stop offset="0" stopColor="#b4a2ff" stopOpacity="0" />
-              <stop offset="0.5" stopColor="#c9bcff" stopOpacity="0.55" />
-              <stop offset="1" stopColor="#8ec5ff" stopOpacity="0" />
+              <stop offset="0" stopColor="#6aa6ff" stopOpacity="0" />
+              <stop offset="0.5" stopColor="#8be9ff" stopOpacity="0.55" />
+              <stop offset="1" stopColor="#6aa6ff" stopOpacity="0" />
             </linearGradient>
           </defs>
           {RINGS.map((r) => (

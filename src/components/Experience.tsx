@@ -46,7 +46,7 @@ export default function Experience() {
         />
 
         <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_260px] lg:gap-16">
-          <ol ref={list} className="timeline relative border-b border-white/[0.07]" style={{ '--p': 0 } as CSSProperties}>
+          <ol ref={list} className="timeline relative border-b border-line/[0.07]" style={{ '--p': 0 } as CSSProperties}>
             <span className="tl-track" aria-hidden="true">
               <span className="tl-fill" />
               <span className="tl-comet" />
@@ -54,7 +54,7 @@ export default function Experience() {
             {experience.map((job, i) => (
               <li
                 key={job.company}
-                className="reveal group relative grid gap-6 border-t border-white/[0.07] py-10 pl-8 sm:py-12 sm:pl-12 lg:grid-cols-[180px_1fr] lg:gap-10"
+                className="reveal group relative grid gap-6 border-t border-line/[0.07] py-10 pl-8 sm:py-12 sm:pl-12 lg:grid-cols-[180px_1fr] lg:gap-10"
                 style={{ '--d': `${i * 80}ms` } as CSSProperties}
               >
                 <span className="tl-node" aria-hidden="true" />
@@ -62,7 +62,7 @@ export default function Experience() {
                   <span className="font-mono text-[13px] text-fg-2">{job.period}</span>
                   <span className="font-mono text-[13px] text-fg-3">{job.location}, India</span>
                   {job.current && (
-                    <span className="inline-flex items-center gap-2 rounded-full border border-[#4ade80]/20 bg-[#4ade80]/[0.06] px-2.5 py-1 text-[11.5px] font-medium text-[#86efac] lg:mt-2">
+                    <span className="inline-flex items-center gap-2 rounded-full border border-ok/20 bg-ok/[0.06] px-2.5 py-1 text-[11.5px] font-medium text-ok lg:mt-2">
                       <span className="live-dot !h-1.5 !w-1.5" /> Current
                     </span>
                   )}
@@ -78,7 +78,7 @@ export default function Experience() {
                   <ul className="mt-6 space-y-3.5">
                     {job.points.map((p) => (
                       <li key={p} className="flex gap-3.5 text-[15.5px] leading-[1.7] text-fg-2">
-                        <span className="mt-[11px] h-px w-3 shrink-0 bg-white/30" />
+                        <span className="mt-[11px] h-px w-3 shrink-0 bg-line/30" />
                         {p}
                       </li>
                     ))}

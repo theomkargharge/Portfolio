@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import Splash from './components/Splash';
 import Starfield from './components/Starfield';
-import Planets from './components/Planets';
 import JourneyPhone from './components/JourneyPhone';
 import Nav from './components/Nav';
 import Hero from './components/Hero';
@@ -63,7 +62,6 @@ function App() {
     <div className="grain relative isolate min-h-screen overflow-x-clip bg-ink text-fg">
       <Splash />
       <Starfield />
-      <Planets />
       <Nav />
       <main>
         <Hero />

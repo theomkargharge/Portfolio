@@ -17,12 +17,12 @@ const TAU = Math.PI * 2;
 
 /* Where each constellation lives in the 1000×620 world, and the spacing of its two star columns */
 const PLACES: Record<Key, { color: string; box: [number, number, number, number]; colB: number }> = {
-  ai: { color: '#c4b5fd', box: [40, 66, 290, 216], colB: 150 },
-  integrations: { color: '#f9a8d4', box: [395, 58, 240, 126], colB: 128 },
-  mobile: { color: '#8ec5ff', box: [680, 66, 290, 216], colB: 150 },
+  ai: { color: '#67e8f9', box: [40, 66, 290, 216], colB: 150 },
+  integrations: { color: '#a5b4fc', box: [395, 58, 240, 126], colB: 128 },
+  mobile: { color: '#60a5fa', box: [680, 66, 290, 216], colB: 150 },
   backend: { color: '#5eead4', box: [40, 352, 290, 238], colB: 150 },
   payments: { color: '#fcd34d', box: [395, 460, 240, 126], colB: 128 },
-  tools: { color: '#a5b4fc', box: [680, 352, 290, 238], colB: 150 },
+  tools: { color: '#e2e8f0', box: [680, 352, 290, 238], colB: 150 },
 };
 
 /* Stable pseudo-random jitter so constellations look hand-placed but never reshuffle */
@@ -78,7 +78,7 @@ function cameraFor(key: Key | null, cw: number, ch: number, wide: boolean) {
 
 /* ---------- Canvas spiral ---------- */
 
-const COLORS = ['#fff1e0', '#e9e3ff', '#c4b5fd', '#a5b4fc', '#8ec5ff', '#f5b8ff'];
+const COLORS = ['#fff6e0', '#e0ecff', '#9fd8ff', '#7aa7ff', '#5eead4', '#c7d2fe'];
 type Particle = { r: number; a: number; size: number; alpha: number; spin: number };
 
 function seedGalaxy(count: number) {
@@ -127,10 +127,10 @@ function drawGalaxy(ctx: CanvasRenderingContext2D, buckets: Particle[][], cw: nu
   ctx.save();
   ctx.scale(1, tilt);
   const g = ctx.createRadialGradient(0, 0, 0, 0, 0, R * 0.5);
-  g.addColorStop(0, 'rgba(255,238,220,0.55)');
-  g.addColorStop(0.18, 'rgba(214,196,255,0.24)');
-  g.addColorStop(0.55, 'rgba(124,108,255,0.08)');
-  g.addColorStop(1, 'rgba(0,0,0,0)');
+  g.addColorStop(0, 'rgba(236,244,255,0.55)');
+  g.addColorStop(0.18, 'rgba(120,170,255,0.24)');
+  g.addColorStop(0.55, 'rgba(59,130,246,0.08)');
+  g.addColorStop(1, 'rgba(59,130,246,0)');
   ctx.fillStyle = g;
   ctx.fillRect(-R, -R, R * 2, R * 2);
   ctx.restore();
@@ -297,7 +297,7 @@ export default function Skills() {
 
   return (
     <section id="stack" className="relative overflow-hidden py-24 sm:py-32">
-      <div className="glow left-1/2 top-1/3 h-[420px] w-[720px] -translate-x-1/2 bg-[#7c6cff]/[0.07]" />
+      <div className="glow left-1/2 top-1/3 h-[420px] w-[720px] -translate-x-1/2 bg-accent/[0.07]" />
       <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
         <SectionHeading
           index="03"
@@ -392,14 +392,14 @@ export default function Skills() {
               })}
             </svg>
             {!wide && (
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#07070b] via-[#07070b]/80 to-transparent pb-3 pt-10 text-center text-[11.5px] text-fg-3">
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-surface via-surface/80 to-transparent pb-3 pt-10 text-center text-[11.5px] text-fg-3">
                 Swipe or tap to fly between constellations
               </div>
             )}
           </div>
         </div>
 
-        <div className="reveal mt-5 grid gap-4 rounded-2xl border border-white/[0.07] bg-[#0a0a0d]/70 p-5 sm:grid-cols-[220px_1fr] sm:items-center sm:p-6" style={{ '--d': '80ms' } as CSSProperties}>
+        <div className="reveal mt-5 grid gap-4 rounded-2xl border border-line/[0.07] bg-surface/70 p-5 sm:grid-cols-[220px_1fr] sm:items-center sm:p-6" style={{ '--d': '80ms' } as CSSProperties}>
           {current ? (
             <>
               <div className="flex items-center gap-3">

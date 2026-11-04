@@ -4,10 +4,10 @@ import { useEffect, useRef } from 'react';
 // scroll (parallax), twinkle, stretch into warp streaks when you scroll fast, lean away
 // from the pointer, and every so often a shooting star crosses the sky.
 
-type Star = { x: number; y: number; z: number; r: number; phase: number; speed: number; fill: string };
+type Star = { x: number; y: number; z: number; r: number; phase: number; speed: number; tint: number };
 type Shooter = { x: number; y: number; vx: number; vy: number; age: number; ttl: number };
 
-const TINTS = ['#ffffff', '#ffffff', '#ffffff', '#cfe0ff', '#d9d0ff', '#fbd5ff'];
+const TINTS = ['#ffffff', '#ffffff', '#ffffff', '#d6ecff', '#bfe9ff', '#ffe9c2']; // white, ice blue, cyan, a warm sun
 const TAU = Math.PI * 2;
 
 export default function Starfield() {
@@ -45,7 +45,7 @@ export default function Starfield() {
           r: 0.35 + z * 1.3,
           phase: Math.random() * TAU,
           speed: 0.5 + Math.random() * 1.8,
-          fill: TINTS[(Math.random() * TINTS.length) | 0],
+          tint: (Math.random() * TINTS.length) | 0,
         };
       });
     };
@@ -65,14 +65,14 @@ export default function Starfield() {
         ctx.globalAlpha = (0.22 + s.z * 0.78) * twinkle * (1 - Math.min(Math.abs(streak) / 160, 0.55));
 
         if (Math.abs(streak) > 1.5) {
-          ctx.strokeStyle = s.fill;
+          ctx.strokeStyle = TINTS[s.tint];
           ctx.lineWidth = Math.max(0.6, s.r * 1.3);
           ctx.beginPath();
           ctx.moveTo(x, y);
           ctx.lineTo(x, y + streak);
           ctx.stroke();
         } else {
-          ctx.fillStyle = s.fill;
+          ctx.fillStyle = TINTS[s.tint];
           ctx.beginPath();
           ctx.arc(x, y, s.r, 0, TAU);
           ctx.fill();
@@ -93,8 +93,8 @@ export default function Starfield() {
           const ey = hy - (shooter.vy / sp) * len;
           const g = ctx.createLinearGradient(hx, hy, ex, ey);
           g.addColorStop(0, 'rgba(255,255,255,0.95)');
-          g.addColorStop(0.25, 'rgba(196,181,253,0.5)');
-          g.addColorStop(1, 'rgba(142,197,255,0)');
+          g.addColorStop(0.25, 'rgba(139,233,255,0.5)');
+          g.addColorStop(1, 'rgba(106,166,255,0)');
           ctx.globalAlpha = Math.sin(p * Math.PI);
           ctx.strokeStyle = g;
           ctx.lineWidth = 1.4;

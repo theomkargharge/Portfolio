@@ -52,12 +52,12 @@ export default function Nav() {
       <nav
         className={`mx-auto mt-3 flex h-14 max-w-6xl items-center justify-between rounded-full border pl-2 pr-2 transition-all duration-500 ${
           solid
-            ? 'border-white/[0.08] bg-[#0b0b0e]/75 shadow-[0_10px_40px_-12px_rgba(0,0,0,0.7)] backdrop-blur-xl'
+            ? 'border-line/[0.08] bg-surface/75 shadow-[0_10px_40px_-12px_var(--shadow)] backdrop-blur-xl'
             : 'border-transparent bg-transparent'
         }`}
       >
         <a href="#top" className="group flex items-center gap-2.5 rounded-full py-1 pl-1 pr-3" onClick={() => setOpen(false)}>
-          <img src={portrait} alt="" className="h-8 w-8 rounded-full object-cover ring-1 ring-white/15" />
+          <img src={portrait} alt="" className="h-8 w-8 rounded-full object-cover ring-1 ring-line/15" />
           <span className="text-[14.5px] font-medium tracking-[-0.01em] text-fg">{profile.name}</span>
         </a>
 
@@ -67,7 +67,7 @@ export default function Nav() {
               <a
                 href={`#${l.id}`}
                 className={`rounded-full px-3.5 py-1.5 text-[13.5px] transition-colors duration-200 ${
-                  active === l.id ? 'bg-white/[0.07] text-fg' : 'text-fg-2 hover:text-fg'
+                  active === l.id ? 'bg-line/[0.07] text-fg' : 'text-fg-2 hover:text-fg'
                 }`}
               >
                 {l.label}
@@ -91,7 +91,7 @@ export default function Nav() {
         </div>
 
         <button
-          className="flex h-10 w-10 items-center justify-center rounded-full text-fg-2 transition-colors hover:bg-white/[0.06] hover:text-fg md:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-full text-fg-2 transition-colors hover:bg-line/[0.06] hover:text-fg md:hidden"
           onClick={() => setOpen(!open)}
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
@@ -101,19 +101,19 @@ export default function Nav() {
       </nav>
 
       {open && (
-        <div className="intro mx-auto mt-2 max-w-6xl rounded-3xl border border-white/[0.08] bg-[#0b0b0e]/95 p-3 backdrop-blur-xl md:hidden" style={{ ['--d' as string]: '0ms' }}>
+        <div className="intro mx-auto mt-2 max-w-6xl rounded-3xl border border-line/[0.08] bg-surface/95 p-3 backdrop-blur-xl md:hidden" style={{ ['--d' as string]: '0ms' }}>
           {links.map((l) => (
             <a
               key={l.id}
               href={`#${l.id}`}
               onClick={() => setOpen(false)}
-              className="flex items-center justify-between rounded-2xl px-4 py-3.5 text-[17px] text-fg transition-colors hover:bg-white/[0.04]"
+              className="flex items-center justify-between rounded-2xl px-4 py-3.5 text-[17px] text-fg transition-colors hover:bg-line/[0.04]"
             >
               {l.label}
               <span className="font-mono text-[11px] text-fg-3">{`#${l.id}`}</span>
             </a>
           ))}
-          <div className="mt-2 grid grid-cols-2 gap-2 border-t border-white/[0.06] pt-3">
+          <div className="mt-2 grid grid-cols-2 gap-2 border-t border-line/[0.06] pt-3">
             <a href={profile.resume} target="_blank" rel="noreferrer" className="btn btn-ghost">
               Résumé
             </a>

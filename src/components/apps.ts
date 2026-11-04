@@ -5,12 +5,12 @@ import { clamp, easeInOut } from '../hooks';
 /* How each project looks as an app on the showcase phone */
 export const APP_LOOK: Record<Project['id'], { label: string; accent: string; rgb: [number, number, number]; icon: string; Glyph: LucideIcon }> = {
   akbar: { label: 'Akbar', accent: '#7fb0ff', rgb: [127, 176, 255], icon: 'linear-gradient(150deg,#6aa8ff,#2f62e0)', Glyph: Plane },
-  tryware: { label: 'TryWare', accent: '#c4b5fd', rgb: [196, 181, 253], icon: 'linear-gradient(150deg,#c084fc,#f472b6)', Glyph: Sparkles },
+  tryware: { label: 'TryWare', accent: '#a5b4fc', rgb: [165, 180, 252], icon: 'linear-gradient(150deg,#6366f1,#38bdf8)', Glyph: Sparkles },
   buggy: { label: 'Buggy', accent: '#6ee7b7', rgb: [110, 231, 183], icon: 'linear-gradient(150deg,#34d399,#0ea5e9)', Glyph: Car },
   appinspect: { label: 'AppInspect', accent: '#67e8f9', rgb: [103, 232, 249], icon: 'linear-gradient(150deg,#22d3ee,#0e7490)', Glyph: Radar },
 };
 
-const HOME_RGB: [number, number, number] = [139, 123, 255];
+const HOME_RGB: [number, number, number] = [92, 156, 255];
 
 /* Home-screen grid, as fractions of the screen box — shared by the layout and the launch animation */
 export const ICON = 0.17; // icon tile, fraction of screen width

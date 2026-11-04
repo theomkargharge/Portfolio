@@ -200,8 +200,8 @@ const PhoneOS = forwardRef<PhoneOSHandle, Props>(function PhoneOS({ onLaunch, on
                 <div className="mt-[0.35em] text-[0.68em] leading-snug text-white/60">downloads · Akbar Travels</div>
               </div>
             </div>
-            <div className="os-card flex aspect-square flex-col justify-between p-[0.95em]" style={{ background: 'radial-gradient(120% 90% at 100% 0%, rgba(167,139,250,0.42), rgba(255,255,255,0.05) 60%)' }}>
-              <Smartphone size="1.25em" className="text-[#cdbdff]" />
+            <div className="os-card flex aspect-square flex-col justify-between p-[0.95em]" style={{ background: 'radial-gradient(120% 90% at 100% 0%, rgba(45,212,191,0.36), rgba(255,255,255,0.05) 60%)' }}>
+              <Smartphone size="1.25em" className="text-[#99f6e4]" />
               <div>
                 <div className="text-[2.1em] font-semibold leading-none tracking-[-0.04em] text-white">3.5+</div>
                 <div className="mt-[0.35em] text-[0.68em] leading-snug text-white/60">years shipping Flutter</div>

@@ -8,7 +8,7 @@ import { clamp, easeInOut } from '../hooks';
 // the site. Any key, click, tap or scroll skips straight to the jump.
 
 const TAU = Math.PI * 2;
-const PALETTE = ['#8ec5ff', '#a7b4ff', '#b4a2ff', '#d0a9ff', '#f5b8ff', '#ffffff'];
+const PALETTE = ['#8be9ff', '#6ad2ff', '#6aa6ff', '#a9c1ff', '#ffe6a8', '#ffffff'];
 const STARS_OF_TECH = Object.values(skillGroups).reduce((n, g) => n + g.items.length, 0);
 const LINES = [`Charting ${projects.length} apps`, `Mapping ${STARS_OF_TECH} stars of tech`, 'Entering the galaxy'];
 
@@ -214,10 +214,10 @@ export default function Splash() {
       const coreR = diag * (0.16 + 0.75 * ju ** 2.2);
       const coreA = Math.min(1, 0.2 + 0.05 * Math.sin(t * 2.4) + 0.72 * ju ** 2);
       const core = ctx.createRadialGradient(cx, cy, 0, cx, cy, coreR);
-      core.addColorStop(0, `rgba(236,228,255,${coreA * (0.35 + 0.65 * ju)})`);
-      core.addColorStop(0.22, `rgba(180,162,255,${coreA * 0.45})`);
-      core.addColorStop(0.6, `rgba(109,125,255,${coreA * 0.16})`);
-      core.addColorStop(1, 'rgba(109,125,255,0)');
+      core.addColorStop(0, `rgba(232,244,255,${coreA * (0.35 + 0.65 * ju)})`);
+      core.addColorStop(0.22, `rgba(106,166,255,${coreA * 0.45})`);
+      core.addColorStop(0.6, `rgba(37,99,235,${coreA * 0.16})`);
+      core.addColorStop(1, 'rgba(37,99,235,0)');
       ctx.globalAlpha = 1;
       ctx.fillStyle = core;
       ctx.fillRect(0, 0, w, h);
@@ -291,7 +291,7 @@ export default function Splash() {
         const mask = `radial-gradient(circle at ${cx.toFixed(1)}px ${cy.toFixed(1)}px, transparent ${hole.toFixed(1)}px, #000 ${(hole + 90).toFixed(1)}px)`;
         el.style.setProperty('-webkit-mask-image', mask);
         el.style.setProperty('mask-image', mask);
-        ctx.strokeStyle = '#d6c8ff';
+        ctx.strokeStyle = '#bfe6ff';
         [
           [16, 0.08],
           [6, 0.2],

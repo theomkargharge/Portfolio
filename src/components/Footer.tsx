@@ -3,7 +3,7 @@ import { profile } from '../data';
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-white/[0.06] pt-14">
+    <footer className="relative overflow-hidden border-t border-line/[0.06] pt-14">
       <div className="mx-auto flex max-w-6xl flex-col gap-8 px-5 sm:px-6 md:flex-row md:items-center md:justify-between">
         <div>
           <div className="text-[15px] font-medium text-fg">{profile.name}</div>
@@ -24,7 +24,7 @@ export default function Footer() {
               target={href.startsWith('http') ? '_blank' : undefined}
               rel="noreferrer"
               aria-label={label}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.08] text-fg-3 transition-colors hover:border-white/20 hover:text-fg"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-line/[0.08] text-fg-3 transition-colors hover:border-line/20 hover:text-fg"
             >
               <Icon size={16} />
             </a>
@@ -32,7 +32,7 @@ export default function Footer() {
           <a
             href="#top"
             aria-label="Back to top"
-            className="ml-2 flex h-10 items-center gap-2 rounded-full border border-white/[0.08] px-4 text-[13px] text-fg-2 transition-colors hover:border-white/20 hover:text-fg"
+            className="ml-2 flex h-10 items-center gap-2 rounded-full border border-line/[0.08] px-4 text-[13px] text-fg-2 transition-colors hover:border-line/20 hover:text-fg"
           >
             Top <ArrowUp size={14} />
           </a>

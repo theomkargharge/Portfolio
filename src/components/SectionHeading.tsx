@@ -13,7 +13,7 @@ export default function SectionHeading({ index, label, title, aside }: Props) {
     <div className="mb-12 max-w-3xl sm:mb-16">
       <div className="reveal eyebrow flex items-center gap-3">
         <span className="text-fg-2">{index}</span>
-        <span className="h-px w-8 bg-white/15" />
+        <span className="h-px w-8 bg-line/15" />
         {label}
       </div>
       <h2 className="reveal display mt-5 text-balance text-[clamp(36px,5.2vw,64px)] text-fg" style={{ ['--d' as string]: '80ms' }}>

@@ -29,14 +29,14 @@ export default function Contact() {
     <section id="contact" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-5 sm:px-6">
         <div className="reveal card relative px-6 pt-16 sm:px-12 sm:pt-20">
-          <div className="absolute inset-0 -z-10" style={{ background: 'radial-gradient(70% 60% at 50% 0%, rgba(124,108,255,0.22), transparent 70%)' }} />
+          <div className="absolute inset-0 -z-10" style={{ background: 'radial-gradient(70% 60% at 50% 0%, rgb(var(--accent-rgb) / 0.2), transparent 70%)' }} />
           <div className="planet" aria-hidden="true" />
 
           <div className="grid items-end gap-6 lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-12">
             <div className="text-center lg:pb-[116px] lg:text-left">
               <div className="eyebrow flex items-center justify-center gap-3 lg:justify-start">
                 <span className="text-fg-2">05</span>
-                <span className="h-px w-8 bg-white/15" />
+                <span className="h-px w-8 bg-line/15" />
                 Contact
               </div>
 
@@ -54,12 +54,12 @@ export default function Contact() {
                   <Mail size={16} /> Send an email
                 </a>
                 <button onClick={copy} className="btn btn-ghost !h-12 !px-5 font-mono !text-[13.5px]" aria-live="polite">
-                  {copied ? <Check size={15} className="text-[#4ade80]" /> : <Copy size={15} className="text-fg-3" />}
+                  {copied ? <Check size={15} className="text-ok" /> : <Copy size={15} className="text-fg-3" />}
                   {copied ? 'Copied to clipboard' : profile.email}
                 </button>
               </div>
 
-              <div className="mx-auto mt-12 flex max-w-2xl flex-wrap items-center justify-center gap-x-7 gap-y-3 border-t border-white/[0.07] pt-8 lg:mx-0 lg:justify-start" style={d(0)}>
+              <div className="mx-auto mt-12 flex max-w-2xl flex-wrap items-center justify-center gap-x-7 gap-y-3 border-t border-line/[0.07] pt-8 lg:mx-0 lg:justify-start" style={d(0)}>
                 {links.map(({ icon: Icon, label, href }) => (
                   <a
                     key={label}

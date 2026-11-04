@@ -98,7 +98,7 @@ export function ChatScreen() {
         </div>
 
         {step >= 1 && (
-          <div className="msg-in ml-auto max-w-[80%] rounded-[1.15em] rounded-br-[0.35em] px-[0.9em] py-[0.6em] text-[0.92em] leading-snug text-white" style={{ background: 'linear-gradient(135deg,#6d7dff,#9b7bff)' }}>
+          <div className="msg-in ml-auto max-w-[80%] rounded-[1.15em] rounded-br-[0.35em] px-[0.9em] py-[0.6em] text-[0.92em] leading-snug text-white" style={{ background: 'linear-gradient(135deg,#2563eb,#38bdf8)' }}>
             Cancel my Mumbai → Dubai flight on 14 Oct
           </div>
         )}
@@ -142,7 +142,7 @@ export function ChatScreen() {
             <span className="rounded-full border border-white/10 px-[0.8em] py-[0.4em] text-[0.8em] text-white/70">Confirm cancellation</span>
             <span
               className={`rounded-full border px-[0.8em] py-[0.4em] text-[0.8em] transition-colors duration-300 ${
-                step >= 5 ? 'border-[#b4a2ff]/60 bg-[#b4a2ff]/15 text-white' : 'border-white/10 text-white/70'
+                step >= 5 ? 'border-[#60a5fa]/60 bg-[#60a5fa]/15 text-white' : 'border-white/10 text-white/70'
               }`}
             >
               Talk to an agent
@@ -151,7 +151,7 @@ export function ChatScreen() {
         )}
 
         {step >= 5 && (
-          <div className="msg-in ml-auto max-w-[80%] rounded-[1.15em] rounded-br-[0.35em] px-[0.9em] py-[0.6em] text-[0.92em] leading-snug text-white" style={{ background: 'linear-gradient(135deg,#6d7dff,#9b7bff)' }}>
+          <div className="msg-in ml-auto max-w-[80%] rounded-[1.15em] rounded-br-[0.35em] px-[0.9em] py-[0.6em] text-[0.92em] leading-snug text-white" style={{ background: 'linear-gradient(135deg,#2563eb,#38bdf8)' }}>
             Talk to an agent
           </div>
         )}
@@ -313,10 +313,10 @@ export function TryOnScreen() {
       <StatusBar />
       <div className="flex shrink-0 items-center justify-between px-[1.1em] pb-[0.7em] pt-[0.6em]">
         <div className="flex items-center gap-[0.4em] text-[1.25em] font-semibold tracking-tight text-white">
-          <Sparkles size="0.95em" className="text-[#c4b5fd]" />
+          <Sparkles size="0.95em" className="text-[#a5b4fc]" />
           TryWare
         </div>
-        <div className="flex items-center gap-[0.35em] rounded-full border border-[#c4b5fd]/25 bg-[#c4b5fd]/10 px-[0.75em] py-[0.3em] text-[0.78em] font-medium text-[#ddd6fe]">
+        <div className="flex items-center gap-[0.35em] rounded-full border border-[#a5b4fc]/25 bg-[#a5b4fc]/10 px-[0.75em] py-[0.3em] text-[0.78em] font-medium text-[#e0e7ff]">
           ✦ 24 credits
         </div>
       </div>
@@ -324,7 +324,7 @@ export function TryOnScreen() {
       <div className="relative mx-[0.9em] min-h-0 flex-1 overflow-hidden rounded-[1.4em] border border-white/[0.08]">
         <img src={portrait} alt="" className="absolute inset-0 h-full w-full object-cover object-[50%_20%]" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0d0b12] via-transparent to-[#0d0b12]/30" />
-        <div className="scan absolute inset-x-0 h-[2px]" style={{ background: 'linear-gradient(90deg,transparent,#c4b5fd,#f5b8ff,transparent)', boxShadow: '0 0 18px 4px rgba(196,181,253,0.55)' }} />
+        <div className="scan absolute inset-x-0 h-[2px]" style={{ background: 'linear-gradient(90deg,transparent,#a5b4fc,#8be9ff,transparent)', boxShadow: '0 0 18px 4px rgba(139,233,255,0.55)' }} />
         <div className="absolute left-[0.7em] top-[0.7em] flex items-center gap-[0.45em] rounded-full bg-black/55 px-[0.7em] py-[0.35em] text-[0.74em] text-white backdrop-blur">
           <span className="spin h-[0.85em] w-[0.85em] rounded-full border-[1.5px] border-white/25 border-t-white" />
           Generating · HD
@@ -335,7 +335,7 @@ export function TryOnScreen() {
             <span className="text-white/55">2 credits</span>
           </div>
           <div className="h-[0.3em] overflow-hidden rounded-full bg-white/15">
-            <div className="progress h-full rounded-full" style={{ background: 'linear-gradient(90deg,#8ec5ff,#b4a2ff,#f5b8ff)' }} />
+            <div className="progress h-full rounded-full" style={{ background: 'linear-gradient(90deg,#8be9ff,#60a5fa,#c3cfff)' }} />
           </div>
         </div>
       </div>
@@ -349,7 +349,7 @@ export function TryOnScreen() {
         {swatches.map((bg, i) => (
           <div
             key={bg}
-            className={`flex aspect-square items-center justify-center rounded-[0.8em] ${i === 0 ? 'ring-2 ring-[#c4b5fd] ring-offset-2 ring-offset-[#0d0b12]' : 'ring-1 ring-white/10'}`}
+            className={`flex aspect-square items-center justify-center rounded-[0.8em] ${i === 0 ? 'ring-2 ring-[#a5b4fc] ring-offset-2 ring-offset-[#0d0b12]' : 'ring-1 ring-white/10'}`}
             style={{ background: bg }}
           >
             <Shirt size="1.4em" className="text-white/70" strokeWidth={1.6} />
@@ -594,7 +594,7 @@ export function InspectScreen() {
             <span className="mt-[0.25em] w-[0.22em] shrink-0 self-stretch rounded-full" style={{ background: toneColor[c.tone] }} />
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-[0.45em] font-mono text-[0.8em]">
-                <span className={c.method === 'POST' ? 'text-[#c4b5fd]' : 'text-[#67e8f9]'}>{c.method}</span>
+                <span className={c.method === 'POST' ? 'text-[#a5b4fc]' : 'text-[#67e8f9]'}>{c.method}</span>
                 <span className="truncate text-white">{c.path}</span>
                 <span className="ml-auto shrink-0 text-white/40">{c.time}</span>
               </div>
@@ -706,7 +706,7 @@ export function CareerScreen() {
           <div className="text-[1.55em] font-semibold tracking-tight text-white">Career</div>
           <div className="text-[0.76em] text-white/45">3.5+ years · {experience.length} product teams</div>
         </div>
-        <div className="h-[2.5em] w-[2.5em] overflow-hidden rounded-full ring-2 ring-[#b4a2ff]/60">
+        <div className="h-[2.5em] w-[2.5em] overflow-hidden rounded-full ring-2 ring-[#60a5fa]/60">
           <img src={portrait} alt="" draggable={false} className="h-full w-full object-cover object-[50%_20%]" />
         </div>
       </div>
@@ -718,7 +718,7 @@ export function CareerScreen() {
           <div
             key={job.company}
             className={`relative rounded-[1.1em] border p-[0.8em] transition-colors duration-500 ${
-              i === active ? 'border-[#b4a2ff]/45 bg-[#b4a2ff]/[0.09]' : 'border-white/[0.06] bg-white/[0.02]'
+              i === active ? 'border-[#60a5fa]/45 bg-[#60a5fa]/[0.09]' : 'border-white/[0.06] bg-white/[0.02]'
             }`}
           >
             <div className="flex items-start gap-[0.75em]">
