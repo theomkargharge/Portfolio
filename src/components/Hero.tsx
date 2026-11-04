@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react';
 import { ArrowRight, Download, Headphones, Zap } from 'lucide-react';
-import { ChatScreen, Phone } from './mockups';
+import { Station } from './JourneyPhone';
+import TechOrbit from './TechOrbit';
 import { profile, stats } from '../data';
 
 const d = (ms: number) => ({ '--d': `${ms}ms` }) as CSSProperties;
@@ -40,37 +41,28 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="intro relative mx-auto" style={d(220)}>
-          <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            {[380, 540, 700].map((s) => (
-              <div
-                key={s}
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.05]"
-                style={{ width: s, height: s }}
-              />
-            ))}
-          </div>
+        <div className="intro intro-once relative mx-auto" style={d(220)}>
           <div className="glow left-1/2 top-1/2 h-[380px] w-[300px] -translate-x-1/2 -translate-y-1/2 bg-[#8b7bff]/30" />
 
-          <Phone className="relative z-10 [--pw:262px] sm:[--pw:292px]">
-            <ChatScreen />
-          </Phone>
+          <TechOrbit>
+            <Station id="hero" className="relative z-10 [--pw:262px] sm:[--pw:292px]" />
+          </TechOrbit>
 
-          <div className="float-y absolute right-[calc(100%-30px)] top-[16%] z-20 whitespace-nowrap hidden items-center gap-2.5 rounded-2xl border border-white/10 bg-[#111115]/80 px-3.5 py-2.5 text-[13px] text-fg shadow-[0_20px_40px_-16px_rgba(0,0,0,0.8)] backdrop-blur-xl sm:flex lg:hidden xl:flex">
+          <div className="float-y absolute right-[calc(100%-30px)] top-[16%] z-[45] whitespace-nowrap hidden items-center gap-2.5 rounded-2xl border border-white/10 bg-[#111115]/80 px-3.5 py-2.5 text-[13px] text-fg shadow-[0_20px_40px_-16px_rgba(0,0,0,0.8)] backdrop-blur-xl sm:flex lg:hidden xl:flex">
             <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#8ec5ff]/15 text-[#8ec5ff]">
               <Zap size={15} />
             </span>
             Real-time over WebSocket
           </div>
 
-          <div className="float-y absolute left-[calc(100%-30px)] top-[34%] z-20 whitespace-nowrap hidden rounded-2xl border border-white/10 bg-[#111115]/80 px-4 py-3 shadow-[0_20px_40px_-16px_rgba(0,0,0,0.8)] backdrop-blur-xl sm:block lg:hidden xl:block" style={{ animationDelay: '-2s' }}>
+          <div className="float-y absolute left-[calc(100%-30px)] top-[34%] z-[45] whitespace-nowrap hidden rounded-2xl border border-white/10 bg-[#111115]/80 px-4 py-3 shadow-[0_20px_40px_-16px_rgba(0,0,0,0.8)] backdrop-blur-xl sm:block lg:hidden xl:block" style={{ animationDelay: '-2s' }}>
             <div className="text-[26px] font-semibold leading-none tracking-tight">
               1M<span className="text-grad">+</span>
             </div>
             <div className="mt-1 text-[12px] text-fg-3">downloads · iOS & Android</div>
           </div>
 
-          <div className="float-y absolute right-[calc(100%-30px)] bottom-[30%] z-20 whitespace-nowrap hidden items-center gap-2.5 rounded-2xl border border-white/10 bg-[#111115]/80 px-3.5 py-2.5 text-[13px] text-fg shadow-[0_20px_40px_-16px_rgba(0,0,0,0.8)] backdrop-blur-xl sm:flex lg:hidden xl:flex" style={{ animationDelay: '-4s' }}>
+          <div className="float-y absolute right-[calc(100%-30px)] bottom-[30%] z-[45] whitespace-nowrap hidden items-center gap-2.5 rounded-2xl border border-white/10 bg-[#111115]/80 px-3.5 py-2.5 text-[13px] text-fg shadow-[0_20px_40px_-16px_rgba(0,0,0,0.8)] backdrop-blur-xl sm:flex lg:hidden xl:flex" style={{ animationDelay: '-4s' }}>
             <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#4ade80]/15 text-[#4ade80]">
               <Headphones size={15} />
             </span>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import portrait from '../assets/portrait.jpg';
 import { profile } from '../data';
@@ -15,9 +15,14 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState('');
+  const bar = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24);
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      if (bar.current) bar.current.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -43,6 +48,7 @@ export default function Nav() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-3 sm:px-4">
+      <div ref={bar} className="scroll-progress" aria-hidden="true" />
       <nav
         className={`mx-auto mt-3 flex h-14 max-w-6xl items-center justify-between rounded-full border pl-2 pr-2 transition-all duration-500 ${
           solid

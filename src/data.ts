@@ -22,7 +22,7 @@ export const stats = [
 export type Link = { label: string; href: string };
 
 export type Project = {
-  id: 'akbar' | 'tryware' | 'buggy';
+  id: 'akbar' | 'tryware' | 'buggy' | 'appinspect';
   index: string;
   name: string;
   tagline: string;
@@ -111,6 +111,32 @@ export const projects: Project[] = [
     links: [
       { label: 'Buggy', href: 'https://play.google.com/store/apps/details?id=com.buggy' },
       { label: 'Buggy Sarathi', href: 'https://play.google.com/store/apps/details?id=com.buggysarathi' },
+    ],
+  },
+  {
+    id: 'appinspect',
+    index: '04',
+    name: 'AppInspect',
+    tagline: 'Network inspector for QC',
+    org: 'Open source · Solo build',
+    period: 'Live on pub.dev',
+    category: 'Developer tooling · Flutter package',
+    summary:
+      'A QC-first network inspector for Flutter, published on pub.dev. Testers tap a floating bubble to see the current screen’s API calls — plain-language status, timing, headers and the raw response — and share them as cURL, without a cable or a developer.',
+    highlights: [
+      'Calls grouped by the screen that made them, with failed, slow and repeated calls flagged — and a bubble that turns red the moment one fails.',
+      'Parse errors name the exact field the app couldn’t read. One-tap bug reports bundle a screenshot, cURL, logs and device info; export as cURL, JSON, Markdown, HAR or Postman.',
+      'Safe to ship: tokens, cookies and passwords masked everywhere, off outside debug unless enabled with a compile-time flag, and PIN-locked for UAT builds.',
+    ],
+    metrics: [
+      { value: '160', label: 'Pub points' },
+      { value: '6', label: 'Platforms' },
+      { value: '3', label: 'Packages' },
+    ],
+    stack: ['Flutter', 'Dart', 'Dio', 'package:http', 'NavigatorObserver', 'HAR', 'Postman'],
+    links: [
+      { label: 'pub.dev', href: 'https://pub.dev/packages/app_inspect' },
+      { label: 'GitHub', href: 'https://github.com/theomkargharge/AppInspect' },
     ],
   },
 ];

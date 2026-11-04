@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react';
 import { GraduationCap } from 'lucide-react';
 import portrait from '../assets/portrait.jpg';
+import { Station } from './JourneyPhone';
 import { education, profile } from '../data';
 
 const d = (ms: number) => ({ '--d': `${ms}ms` }) as CSSProperties;
@@ -9,7 +10,7 @@ const facts = [
   { k: 'Based in', v: 'Pune, India · IST' },
   { k: 'Currently', v: 'Flutter Developer, Benzy Infotech' },
   { k: 'Exploring', v: 'LLM agents & RAG in mobile apps' },
-  { k: 'Shipped', v: '4 apps on the App Store & Play' },
+  { k: 'Shipped', v: '4 apps on the stores · 1 package on pub.dev' },
 ];
 
 export default function About() {
@@ -31,6 +32,8 @@ export default function About() {
               </span>
             </div>
           </div>
+          {/* the journey phone leans on the photo here, showing my profile */}
+          <Station id="about" className="absolute -right-2 top-[10%] [--pw:120px] sm:-right-8 sm:[--pw:160px] lg:-right-16 lg:top-[12%] lg:[--pw:180px]" />
         </div>
 
         <div className="flex flex-col justify-center">

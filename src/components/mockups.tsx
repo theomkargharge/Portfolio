@@ -1,16 +1,29 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
+  AlertTriangle,
   ArrowLeftRight,
+  ArrowUp,
+  BadgeCheck,
   BatteryFull,
   BedDouble,
+  Briefcase,
+  Bug,
+  Check,
   ChevronLeft,
+  Copy,
   FileCheck2,
+  FileDown,
   Headphones,
+  Linkedin,
+  Mail,
+  MapPin,
   MessageCircle,
   Mic,
   Palmtree,
+  Paperclip,
   Phone as PhoneIcon,
   Plane,
+  Radar,
   Send,
   Share2,
   Shirt,
@@ -19,26 +32,12 @@ import {
   Wifi,
 } from 'lucide-react';
 import portrait from '../assets/portrait.jpg';
+import { experience, profile, projects } from '../data';
 
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ------------------------------------------------------------------ */
-/* Device frame                                                        */
-/* ------------------------------------------------------------------ */
-
-export function Phone({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return (
-    <div className={`phone ${className}`} aria-hidden="true">
-      <div className="phone-screen">
-        <div className="phone-island" />
-        {children}
-      </div>
-    </div>
-  );
-}
-
-function StatusBar() {
+export function StatusBar() {
   return (
     <div className="relative z-10 flex h-[2.7em] shrink-0 items-end justify-between px-[1.9em] pb-[0.25em] text-[0.9em] font-semibold text-white">
       <span>9:41</span>
@@ -514,5 +513,382 @@ export function RideRequestCard() {
         <div className="rounded-full bg-[#34d399] py-2 text-center text-[#06110d]">Accept</div>
       </div>
     </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* AppInspect — in-app network inspector for QC                        */
+/* ------------------------------------------------------------------ */
+
+type Tone = 'ok' | 'err' | 'warn';
+
+const toneColor: Record<Tone, string> = { ok: '#4ade80', err: '#f87171', warn: '#fbbf24' };
+
+const calls: { method: string; path: string; status: string; tone: Tone; time: string; flag?: string }[] = [
+  { method: 'GET', path: '/cart', status: '200 OK', tone: 'ok', time: '182 ms' },
+  { method: 'GET', path: '/user/profile', status: '200 OK', tone: 'ok', time: '96 ms', flag: 'Repeated ×3' },
+  { method: 'POST', path: '/orders', status: '500 Server error', tone: 'err', time: '1.2 s' },
+  { method: 'GET', path: '/offers', status: 'Parse error', tone: 'warn', time: '240 ms', flag: 'offers[0].price' },
+];
+
+const INSPECT_LAST = 6;
+
+export function InspectScreen() {
+  const [step, setStep] = useState(() => (prefersReducedMotion() ? INSPECT_LAST : 1));
+
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+    const wait = step === INSPECT_LAST ? 4200 : step === 4 ? 1400 : 1000;
+    const t = setTimeout(() => setStep((s) => (s >= INSPECT_LAST ? 1 : s + 1)), wait);
+    return () => clearTimeout(t);
+  }, [step]);
+
+  const shown = calls.slice(0, Math.min(step, calls.length));
+  const errors = shown.filter((c) => c.tone === 'err').length;
+  const parse = shown.filter((c) => c.tone === 'warn').length;
+
+  return (
+    <div className="flex h-full flex-col bg-[#0a0d10]">
+      <StatusBar />
+
+      <div className="flex shrink-0 items-center gap-[0.6em] px-[1em] pb-[0.7em] pt-[0.6em]">
+        <div className="flex h-[2.3em] w-[2.3em] items-center justify-center rounded-[0.75em] bg-[#67e8f9]/15 text-[#67e8f9]">
+          <Radar size="1.2em" />
+        </div>
+        <div className="min-w-0 flex-1 leading-tight">
+          <div className="text-[1.05em] font-semibold text-white">AppInspect</div>
+          <div className="text-[0.74em] text-white/45">Calls on this screen</div>
+        </div>
+        <div className="grid grid-cols-2 rounded-full border border-white/[0.07] bg-white/[0.03] p-[0.2em] text-[0.72em]">
+          <span className="rounded-full bg-white px-[0.7em] py-[0.25em] font-semibold text-[#0a0d10]">Calls</span>
+          <span className="px-[0.7em] py-[0.25em] text-white/50">Logs</span>
+        </div>
+      </div>
+
+      <div className="flex shrink-0 gap-[0.4em] overflow-hidden px-[0.9em] text-[0.74em]">
+        <span className="flex shrink-0 items-center gap-[0.4em] rounded-full border border-[#67e8f9]/35 bg-[#67e8f9]/10 px-[0.8em] py-[0.35em] text-white">
+          CheckoutScreen
+          <span className="font-mono text-[#67e8f9]">{shown.length}</span>
+        </span>
+        <span className="shrink-0 rounded-full border border-white/[0.07] px-[0.8em] py-[0.35em] text-white/50">CartScreen</span>
+        <span className="shrink-0 rounded-full border border-white/[0.07] px-[0.8em] py-[0.35em] text-white/50">HomeScreen</span>
+      </div>
+
+      <div
+        className={`mx-[0.9em] mt-[0.7em] flex shrink-0 items-center gap-[0.5em] rounded-[0.8em] border px-[0.75em] py-[0.5em] text-[0.76em] transition-colors duration-500 ${
+          errors ? 'border-[#f87171]/30 bg-[#f87171]/10 text-[#fecaca]' : 'border-[#4ade80]/25 bg-[#4ade80]/[0.08] text-[#bbf7d0]'
+        }`}
+      >
+        {errors ? <AlertTriangle size="1.1em" className="shrink-0 text-[#f87171]" /> : <Check size="1.1em" className="shrink-0 text-[#4ade80]" />}
+        {errors ? `${errors} server error${parse ? ` · ${parse} parse error` : ''}` : 'All calls healthy'}
+      </div>
+
+      <div className="mt-[0.6em] flex min-h-0 flex-1 flex-col gap-[0.4em] overflow-hidden px-[0.9em]">
+        {shown.map((c) => (
+          <div
+            key={c.path}
+            className={`msg-in flex gap-[0.6em] rounded-[0.9em] border px-[0.7em] py-[0.55em] ${
+              c.tone === 'err' ? 'border-[#f87171]/30 bg-[#f87171]/[0.06]' : 'border-white/[0.06] bg-white/[0.02]'
+            }`}
+          >
+            <span className="mt-[0.25em] w-[0.22em] shrink-0 self-stretch rounded-full" style={{ background: toneColor[c.tone] }} />
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-[0.45em] font-mono text-[0.8em]">
+                <span className={c.method === 'POST' ? 'text-[#c4b5fd]' : 'text-[#67e8f9]'}>{c.method}</span>
+                <span className="truncate text-white">{c.path}</span>
+                <span className="ml-auto shrink-0 text-white/40">{c.time}</span>
+              </div>
+              <div className="mt-[0.2em] flex items-center gap-[0.45em] text-[0.72em]">
+                <span style={{ color: toneColor[c.tone] }}>{c.status}</span>
+                {c.flag && (
+                  <span className="truncate rounded-full border border-white/[0.08] px-[0.55em] py-[0.05em] font-mono text-white/55">{c.flag}</span>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {step >= 5 && (
+        <div className="msg-in mx-[0.9em] mt-[0.5em] shrink-0 rounded-[0.9em] border border-white/[0.07] bg-[#06080a] p-[0.7em] font-mono text-[0.66em] leading-[1.55] text-white/60">
+          <div className="mb-[0.3em] flex items-center justify-between font-sans text-[1.08em]">
+            <span className="text-white/45">cURL · POST /orders</span>
+            {step >= 6 ? (
+              <span className="msg-in flex items-center gap-[0.3em] text-[#4ade80]">
+                <Check size="1.05em" /> Copied
+              </span>
+            ) : (
+              <Copy size="1.05em" className="text-white/40" />
+            )}
+          </div>
+          <div>
+            <span className="text-[#67e8f9]">curl</span> -X POST \
+          </div>
+          <div className="pl-[1em]">&apos;https://api.shop.dev/orders&apos; \</div>
+          <div className="truncate pl-[1em]">
+            -H &apos;Authorization: Bearer <span className="text-[#fbbf24]">••••••</span>&apos;
+          </div>
+        </div>
+      )}
+
+      <div className="mx-[0.9em] mt-[0.6em] grid shrink-0 grid-cols-2 gap-[0.45em] text-[0.78em] font-medium">
+        <div className="flex h-[2.6em] items-center justify-center gap-[0.4em] rounded-[0.8em] border border-white/[0.08] text-white/80">
+          <Share2 size="1.05em" /> Export HAR
+        </div>
+        <div className="flex h-[2.6em] items-center justify-center gap-[0.4em] rounded-[0.8em] bg-[#67e8f9] text-[#05161a]">
+          <Bug size="1.05em" /> Bug report
+        </div>
+      </div>
+      <HomeBar />
+    </div>
+  );
+}
+
+/* AppInspect — the floating bubble that turns red when a call fails */
+export function InspectBubble() {
+  return (
+    <div className="flex w-fit items-center gap-3 rounded-[20px] border border-white/10 bg-[#0e1114]/90 py-3 pl-3 pr-4 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.9)] backdrop-blur-xl" aria-hidden="true">
+      <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#f87171]/40 bg-[#f87171]/15 text-[#fca5a5]">
+        <Radar size={19} />
+        <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full border-2 border-[#0e1114] bg-[#ef4444] px-1 text-[10px] font-bold text-white">
+          4
+        </span>
+      </div>
+      <div className="min-w-0 leading-tight">
+        <div className="text-[12.5px] font-semibold text-white">1 call failing</div>
+        <div className="mt-0.5 text-[10.5px] text-white/45">POST /orders · 500</div>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Journey stop — Career, in step with the Experience timeline         */
+/* ------------------------------------------------------------------ */
+
+const LOGOS = ['linear-gradient(150deg,#8ec5ff,#6366f1)', 'linear-gradient(150deg,#34d399,#0ea5e9)'];
+const initials = (name: string) =>
+  name
+    .split(' ')
+    .map((w) => w[0])
+    .join('')
+    .slice(0, 2);
+
+export function CareerScreen() {
+  const fill = useRef<HTMLSpanElement>(null);
+  const [active, setActive] = useState(0);
+
+  // Read the page's own timeline: how far its rail has drawn, and which job it has reached
+  useEffect(() => {
+    let raf = 0;
+    let shown = 0;
+    const tick = () => {
+      raf = requestAnimationFrame(tick);
+      const line = document.querySelector<HTMLElement>('.timeline');
+      if (!line) return;
+      const p = parseFloat(line.style.getPropertyValue('--p')) || 0;
+      if (fill.current) fill.current.style.transform = `scaleY(${p.toFixed(3)})`;
+      const reached = Math.max(0, line.querySelectorAll(':scope > li.is-lit').length - 1);
+      if (reached !== shown) {
+        shown = reached;
+        setActive(reached);
+      }
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  return (
+    <div className="flex h-full flex-col bg-[#0b0b10]">
+      <StatusBar />
+      <div className="flex shrink-0 items-center justify-between px-[1.1em] pb-[0.9em] pt-[0.6em]">
+        <div>
+          <div className="text-[1.55em] font-semibold tracking-tight text-white">Career</div>
+          <div className="text-[0.76em] text-white/45">3.5+ years · {experience.length} product teams</div>
+        </div>
+        <div className="h-[2.5em] w-[2.5em] overflow-hidden rounded-full ring-2 ring-[#b4a2ff]/60">
+          <img src={portrait} alt="" draggable={false} className="h-full w-full object-cover object-[50%_20%]" />
+        </div>
+      </div>
+
+      <div className="relative mx-[1em] flex flex-col gap-[0.7em]">
+        <span className="absolute bottom-[1.6em] left-[1.95em] top-[1.6em] w-px bg-white/10" />
+        <span ref={fill} className="absolute bottom-[1.6em] left-[1.95em] top-[1.6em] w-px origin-top" style={{ background: 'var(--grad)', transform: 'scaleY(0)' }} />
+        {experience.map((job, i) => (
+          <div
+            key={job.company}
+            className={`relative rounded-[1.1em] border p-[0.8em] transition-colors duration-500 ${
+              i === active ? 'border-[#b4a2ff]/45 bg-[#b4a2ff]/[0.09]' : 'border-white/[0.06] bg-white/[0.02]'
+            }`}
+          >
+            <div className="flex items-start gap-[0.75em]">
+              <span className="relative z-10 flex h-[2.3em] w-[2.3em] shrink-0 items-center justify-center rounded-[0.75em] font-bold text-white" style={{ background: LOGOS[i % LOGOS.length] }}>
+                <span className="text-[0.82em]">{initials(job.company)}</span>
+              </span>
+              <div className="min-w-0 flex-1 leading-tight">
+                <div className="flex items-center justify-between gap-[0.4em]">
+                  <span className="truncate text-[0.95em] font-semibold text-white">{job.company}</span>
+                  {job.current && <span className="shrink-0 rounded-full bg-[#4ade80]/15 px-[0.55em] py-[0.15em] text-[0.62em] font-medium text-[#86efac]">Now</span>}
+                </div>
+                <div className="mt-[0.15em] text-[0.76em] text-white/65">{job.role}</div>
+                <div className="mt-[0.2em] flex items-center gap-[0.3em] text-[0.68em] text-white/40">
+                  <Briefcase size="1em" /> {job.period}
+                </div>
+              </div>
+            </div>
+            <div className="mt-[0.6em] flex flex-wrap gap-[0.3em] pl-[3.05em]">
+              {job.tags.slice(0, 3).map((t) => (
+                <span key={t} className="rounded-full border border-white/[0.08] px-[0.55em] py-[0.12em] text-[0.62em] text-white/60">
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mx-[1em] mt-auto flex h-[2.7em] shrink-0 items-center justify-center gap-[0.45em] rounded-[0.9em] text-[0.86em] font-semibold text-[#0b0b10]" style={{ background: 'var(--grad)' }}>
+        <FileDown size="1.05em" /> Download résumé
+      </div>
+      <HomeBar />
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Journey stop — Profile card                                         */
+/* ------------------------------------------------------------------ */
+
+export function ProfileScreen() {
+  const actions = [
+    { Icon: MessageCircle, label: 'Message' },
+    { Icon: PhoneIcon, label: 'Call' },
+    { Icon: Mail, label: 'Email' },
+    { Icon: Linkedin, label: 'LinkedIn' },
+  ];
+  return (
+    <div className="relative flex h-full flex-col bg-[#0b0b10]">
+      <div className="os-wall" style={{ bottom: 'auto', height: '27%' }} />
+      <div className="relative">
+        <StatusBar />
+      </div>
+
+      <div className="relative mt-[3.4em] flex flex-col items-center px-[1em] text-center">
+        <div className="rounded-full p-[0.22em]" style={{ background: 'var(--grad)' }}>
+          <img src={portrait} alt="" draggable={false} className="h-[6em] w-[6em] rounded-full border-[0.22em] border-[#0b0b10] object-cover object-[50%_20%]" />
+        </div>
+        <div className="mt-[0.65em] flex items-center gap-[0.3em] text-[1.3em] font-semibold tracking-tight text-white">
+          {profile.name} <BadgeCheck size="0.85em" className="text-[#8ec5ff]" />
+        </div>
+        <div className="text-[0.8em] text-white/55">{profile.role}</div>
+        <div className="mt-[0.3em] flex items-center gap-[0.3em] text-[0.72em] text-white/40">
+          <MapPin size="1em" /> {profile.location} · IST
+        </div>
+        <div className="mt-[0.8em] inline-flex items-center gap-[0.45em] rounded-full border border-[#4ade80]/25 bg-[#4ade80]/10 px-[0.8em] py-[0.3em] text-[0.72em] text-[#86efac]">
+          <span className="live-dot !h-[0.5em] !w-[0.5em]" /> Open to new roles
+        </div>
+      </div>
+
+      <div className="mt-[1.1em] grid grid-cols-4 gap-[0.4em] px-[1em]">
+        {actions.map(({ Icon, label }) => (
+          <div key={label} className="flex flex-col items-center gap-[0.35em]">
+            <span className="flex h-[2.6em] w-[2.6em] items-center justify-center rounded-full bg-white/[0.07] text-white">
+              <Icon size="1.1em" />
+            </span>
+            <span className="text-[0.62em] text-white/50">{label}</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="mx-[1em] mt-[1em] grid grid-cols-3 rounded-[1.1em] border border-white/[0.07] bg-white/[0.03] py-[0.75em] text-center">
+        {[
+          { v: '3.5+', l: 'Years' },
+          { v: '1M+', l: 'Downloads' },
+          { v: String(projects.length), l: 'Apps live' },
+        ].map((s, i) => (
+          <div key={s.l} className={i ? 'border-l border-white/[0.07]' : ''}>
+            <div className="text-[1.15em] font-semibold tracking-tight text-white">{s.v}</div>
+            <div className="text-[0.62em] text-white/45">{s.l}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="os-card mx-[1em] mt-[0.7em] flex items-center gap-[0.7em] p-[0.75em]">
+        <span className="flex h-[2.1em] w-[2.1em] shrink-0 items-center justify-center rounded-[0.7em]" style={{ background: 'var(--grad)' }}>
+          <Sparkles size="1.05em" className="text-[#0b0b0e]" />
+        </span>
+        <div className="min-w-0 leading-tight">
+          <div className="text-[0.6em] uppercase tracking-[0.14em] text-white/45">Now exploring</div>
+          <div className="truncate text-[0.82em] text-white">LLM agents & RAG in mobile apps</div>
+        </div>
+      </div>
+      <div className="mt-auto">
+        <HomeBar />
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Journey stop — the email that ends the trip                         */
+/* ------------------------------------------------------------------ */
+
+const MESSAGE = 'Hi Omkar,\nI found your portfolio among the stars ✦ Let’s build an app people use every day — with AI inside.';
+const KEY_ROWS = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'];
+
+export function ComposeScreen() {
+  const [typed, setTyped] = useState(() => (prefersReducedMotion() ? MESSAGE.length : 0));
+
+  useEffect(() => {
+    if (typed >= MESSAGE.length) return;
+    const pause = /[\n.✦—]/.test(MESSAGE[typed]) ? 280 : 34;
+    const t = setTimeout(() => setTyped((n) => n + 1), pause);
+    return () => clearTimeout(t);
+  }, [typed]);
+
+  const pressed = MESSAGE[typed - 1]?.toLowerCase();
+
+  return (
+    <a href={`mailto:${profile.email}`} draggable={false} aria-label={`Email ${profile.name}`} className="flex h-full flex-col bg-[#0b0b10] text-white">
+      <StatusBar />
+      <div className="flex shrink-0 items-center justify-between px-[1em] pb-[0.6em] pt-[0.5em]">
+        <span className="text-[0.86em] text-[#8ec5ff]">Cancel</span>
+        <span className="text-[0.95em] font-semibold">New Message</span>
+        <span className="send-pulse flex h-[2.1em] w-[2.1em] items-center justify-center rounded-full text-[#0b0b10]" style={{ background: 'var(--grad)' }}>
+          <ArrowUp size="1.15em" strokeWidth={2.6} />
+        </span>
+      </div>
+      <div className="mx-[1em] shrink-0 border-t border-white/[0.07] py-[0.55em] text-[0.78em]">
+        <span className="text-white/40">To </span>
+        <span className="rounded-full bg-[#8ec5ff]/15 px-[0.6em] py-[0.15em] text-[#bfdbfe]">{profile.email}</span>
+      </div>
+      <div className="mx-[1em] shrink-0 border-y border-white/[0.07] py-[0.55em] text-[0.78em]">
+        <span className="text-white/40">Subject </span>Let’s build something ✦
+      </div>
+      <div className="mx-[1em] mt-[0.7em] min-h-0 flex-1 whitespace-pre-wrap text-[0.86em] leading-relaxed text-white/85">
+        {MESSAGE.slice(0, typed)}
+        <span className="caret" />
+      </div>
+      <div className="flex shrink-0 items-center gap-[0.5em] px-[1em] pb-[0.55em] text-[0.68em] text-white/45">
+        <Paperclip size="1.1em" /> Résumé.pdf
+      </div>
+      <div className="shrink-0 bg-[#15151c] px-[0.35em] pt-[0.5em]">
+        {KEY_ROWS.map((row, r) => (
+          <div key={row} className="mb-[0.35em] flex gap-[0.3em]" style={{ paddingInline: `${r * 0.85}em` }}>
+            {[...row].map((k) => (
+              <span key={k} className={`kbd-key ${k === pressed ? 'is-down' : ''}`}>
+                {k}
+              </span>
+            ))}
+          </div>
+        ))}
+        <div className="flex gap-[0.3em]">
+          <span className="kbd-key !flex-[0_0_22%]">123</span>
+          <span className={`kbd-key ${pressed === ' ' ? 'is-down' : ''}`}>space</span>
+          <span className="kbd-key !flex-[0_0_22%] !bg-[#6366f1] !text-white">send</span>
+        </div>
+        <HomeBar />
+      </div>
+    </a>
   );
 }
